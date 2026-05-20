@@ -1,9 +1,9 @@
 # order-app-front
-> frontend de plataforma para automatuzar la gestion de pedidos de un restaurante
+> frontend de plataforma para automatizar la gestion de pedidos de un restaurante
 
 ---
 
-# Tegnologias
+# Tecnologias
 
 | Categoría       | Tecnología                                 |
 | --------------- | ------------------------------------------ |
@@ -123,8 +123,8 @@ pnpm run dev
 | `@services/*`   | `src/services/*`                    |
 
 ```typescript
-// Correcto
-import AppRouter from '@router'
+// Correcto (nodenext requiere extension explicita)
+import AppRouter from '@router/index.tsx'
 import { useProductList } from '@features/products/hooks/useProductList.ts'
 ```
 
