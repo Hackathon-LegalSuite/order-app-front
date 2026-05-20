@@ -1,4 +1,4 @@
-# Arquitectura Scope-Based
+# order-app-front
 > frontend de plataforma para automatuzar la gestion de pedidos de un restaurante
 
 ---
@@ -29,51 +29,45 @@
 ├── public/
 │
 ├── src/
-│   │
-│   ├── app/
-│   │   ├── providers/
-│   │   ├── router/
-│   │   ├── store/
-│   │   └── layouts/
-│   │
 │   ├── assets/
 │   │   ├── images/
-│   │   ├── icons/
-│   │   ├── fonts/
-│   │   └── animations/
+│   │   └── icons/
+│   │
+│   ├── features/
+│   │   ├── orders/
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   ├── services/
+│   │   │   ├── store/
+│   │   │   └── types/
+│   │   └── products/
+│   │       ├── components/
+│   │       ├── hooks/
+│   │       ├── services/
+│   │       ├── store/
+│   │       └── types/
+│   │
+│   ├── router/
+│   │   └── index.tsx
+│   │
+│   ├── services/
+│   │   └── http.ts
 │   │
 │   ├── shared/
 │   │   ├── components/
 │   │   │   ├── ui/
 │   │   │   └── overlays/
-│   │   │
 │   │   ├── hooks/
-│   │   ├── utils/
-│   │   ├── lib/
-│   │   ├── constants/
 │   │   ├── types/
-│   │   ├── schemas/
-│   │   └── styles/
+│   │   └── utils/
 │   │
-│   ├── features/
-│   │   │
-│   │   ├── products/
-│   │   │   ├── api/
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   ├── pages/
-│   │   │   ├── services/
-│   │   │   ├── store/
-│   │   │   ├── schemas/
-│   │   │   ├── types/
-│   │   │   ├── utils/
-│   │   │   └── constants/
-│
-│   ├── styles/
+│   ├── store/
+│   │   ├── rootReducer.ts
+│   │   └── hookStore.ts
 │   │
 │   ├── App.tsx
-│   ├── main.tsx
-│   └── vite-env.d.ts
+│   ├── index.css
+│   └── main.tsx
 │
 ├── .env
 ├── .env.development
@@ -115,11 +109,8 @@ pnpm run dev
 | Alias           | Ruta                                |
 | --------------- | ----------------------------------- |
 | `@/*`           | `src/*`                             |
-| `@app/*`        | `src/app/*`                         |
-| `@router/*`     | `src/app/router/*`                  |
-| `@store/*`      | `src/app/store/*`                   |
-| `@layouts/*`    | `src/app/layouts/*`                 |
-| `@providers/*`  | `src/app/providers/*`               |
+| `@router/*`     | `src/router/*`                      |
+| `@store/*`      | `src/store/*`                       |
 | `@features/*`   | `src/features/*`                    |
 | `@assets/*`     | `src/assets/*`                      |
 | `@shared/*`     | `src/shared/*`                      |
@@ -129,14 +120,11 @@ pnpm run dev
 | `@hooks/*`      | `src/shared/hooks/*`                |
 | `@types/*`      | `src/shared/types/*`                |
 | `@utils/*`      | `src/shared/utils/*`                |
-| `@lib/*`        | `src/shared/lib/*`                  |
-| `@constants/*`  | `src/shared/constants/*`            |
-| `@schemas/*`    | `src/shared/schemas/*`              |
-| `@styles/*`     | `src/styles/*`                      |
+| `@services/*`   | `src/services/*`                    |
 
 ```typescript
 // Correcto
-import { AppRouter } from '@router/AppRouter.tsx'
+import AppRouter from '@router'
 import { useProductList } from '@features/products/hooks/useProductList.ts'
 ```
 
