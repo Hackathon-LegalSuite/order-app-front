@@ -1,4 +1,4 @@
-import AliasProbe from '@ui/AliasProbe'
+import AliasProbe from '@ui/AliasProbe.tsx'
 
 const AppRouter = () => <AliasProbe />
 
