@@ -18,7 +18,7 @@ const FormLogin = () => {
             label="Tu usuario"
             labelClassName="text-two"
             activeClassName="focus-within:ring-item"
-            icon={<CircleUser className="w-5 h-5" />}
+            icon={CircleUser}
           />
           <ComponentInput
             placeholder="Ingresa tu contraseña"
@@ -26,13 +26,13 @@ const FormLogin = () => {
             type="password"
             labelClassName="text-two"
             activeClassName="focus-within:ring-item"
-            icon={<KeySquare className="w-5 h-5" />}
+            icon={KeySquare}
           />
           <div className="flex items-center justify-end mt-2">
           <ComponentButton
             text="Iniciar sesión"
             color="bg-item"
-            icon={<ArrowRight className="w-5 h-5" />}
+            icon={ArrowRight}
           />
           </div>
         </div>

@@ -1,9 +1,10 @@
 
-import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
+import type { LucideIcon } from 'lucide-react'
 
 type InputProps = ComponentPropsWithoutRef<'input'> & {
   label?: string
-  icon?: ReactNode
+  icon?: LucideIcon
   labelClassName?: string
   activeClassName?: string
 }
@@ -13,6 +14,7 @@ const ComponentInput = ({ label, icon, labelClassName, activeClassName, ...props
   const activeClass = activeClassName?.trim()
     ? activeClassName
     : 'focus-within:ring-primary'
+  const Icon = icon
   return (
     <label className="flex flex-col gap-2 text-start text-primary">
       {label ? (
@@ -21,9 +23,13 @@ const ComponentInput = ({ label, icon, labelClassName, activeClassName, ...props
         </span>
       ) : null}
       <span
-        className={`flex items-center gap-2 rounded-xl bg-white px-3 py-2 ring-1 ring-black/5 transition focus-within:ring-2 ${activeClass}`}
+        className={`flex items-center gap-2 rounded-xl bg-white px-3 py-2 transition focus-within:ring-2 ${activeClass}`}
       >
-        {icon ? <span className="text-primary">{icon}</span> : null}
+        {Icon ? (
+          <span className="text-primary">
+            <Icon className="w-5 h-5" />
+          </span>
+        ) : null}
         <input
           className="w-full bg-transparent text-sm text-primary placeholder:text-secondary/80 outline-none"
           {...props}
