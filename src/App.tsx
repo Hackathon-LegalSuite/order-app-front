@@ -1,4 +1,4 @@
-import AppRouter from './router/index.tsx'
+import AppRouter from './router/AppRouter.tsx'
 
 const App = () => <AppRouter />
 
