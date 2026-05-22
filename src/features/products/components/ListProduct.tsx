@@ -184,7 +184,7 @@ const products: Product[] = [
 
 const ListProduct = () => {
   return (
-    <div className="flex flex-col w-full gap-5">
+    <div className="flex flex-col w-full gap-5 pb-20">
       {products.map((product) => (
         <CardProduct
           key={product.name}
