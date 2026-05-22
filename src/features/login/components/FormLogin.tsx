@@ -1,0 +1,48 @@
+import Input from "@/shared/components/ui/Input.tsx";
+import Button from "@/shared/components/ui/button.tsx";
+
+import { CircleUser, KeySquare, ArrowRight } from "lucide-react";
+import meseros from "@/assets/images/meseros.png";
+
+const FormLogin = () => {
+  return (
+    <div className="w-full flex flex-col items-center justify-between bg-one px-12 pt-8 rounded-2xl gap-6 max-w-md border border-black/5 shadow-lg">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <h1 className=" text-two">¡Bienvenido!</h1>
+        <p className="text-secondary text-sm leading-relaxed">
+          Por Favor ingresa tu usuario y contraseña para comenzar
+        </p>
+        <div className="flex flex-col w-full gap-6">
+          <Input
+            placeholder="Ingresa tu usuario"
+            label="Tu usuario"
+            labelClassName="text-two"
+            activeClassName="focus-within:ring-item"
+            icon={<CircleUser className="w-5 h-5" />}
+          />
+          <Input
+            placeholder="Ingresa tu contraseña"
+            label="Tu contraseña"
+            type="password"
+            labelClassName="text-two"
+            activeClassName="focus-within:ring-item"
+            icon={<KeySquare className="w-5 h-5" />}
+          />
+          <div className="flex items-center justify-end mt-2">
+          <Button
+            text="Iniciar sesión"
+            color="bg-item"
+            icon={<ArrowRight className="w-5 h-5" />}
+          />
+          </div>
+        </div>
+      </div>
+      <img
+        src={meseros}
+        alt="Login Image"
+      />
+    </div>
+  );
+};
+
+export default FormLogin;
