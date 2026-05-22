@@ -1,11 +1,10 @@
 import type { LucideIcon } from 'lucide-react'
 import { Bot, CakeSlice, CupSoda, Beef, Grape } from 'lucide-react'
-import type { Category } from '@/shared/types/Categoy.types.ts'
 
 const ComponentFilter = () => {
   const opcionFilter: Array<{
     id: number
-    label: Category[number]
+    label: string
     icon: LucideIcon
   }> = [
     { id: 1, label: 'entrada', icon: Grape },

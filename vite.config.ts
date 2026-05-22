@@ -11,6 +11,14 @@ export default defineConfig({
       usePolling: true,
       interval: 100,
     },
+    proxy: {
+      '/api': {
+        target: 'https://order-app-back.onrender.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (pathValue) => pathValue.replace(/^\/api/, ''),
+      },
+    },
   },
   resolve: {
     alias: {
