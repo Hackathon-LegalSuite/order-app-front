@@ -1,56 +1,31 @@
-import type { CardProductProps } from "@/shared/components/ui/CardProduct.tsx"
-import CardProduct from "@/shared/components/ui/CardProduct.tsx"
-
-type Product = Omit<CardProductProps, "price" | "ingredients"> & { price: number }
-
-const ingredients = [
-  { id: 1, label: "Platano" },
-  { id: 2, label: "Lentejas" },
-  { id: 3, label: "Carne Molida" },
-  { id: 4, label: "Tomate" },
-  { id: 5, label: "Pico de gallo" },
-]
-
-const products: Product[] = [
-  {
-    name: "Hamburguesa Clasica",
-    price: 100000,
-    amount: 2,
-    category: "fuerte",
-    img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
-    type: "client",
-  },
-  {
-    name: "Hamburguesa Doble",
-    price: 120000,
-    amount: 1,
-    category: "fuerte",
-    img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
-    type: "client",
-  },
-  {
-    name: "Hamburguesa BBQ",
-    price: 110000,
-    amount: 3,
-    category: "fuerte",
-    img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
-    type: "client",
-  }
-]
+import { useMemo } from 'react'
+import CardProduct from '@/shared/components/ui/CardProduct.tsx'
+import { products } from '@/features/products/data/products.ts'
+import { useCartStore } from '@store/cartStore.ts'
 
 const ListProduct = () => {
+  const items = useCartStore((state) => state.items)
+  const productCounts = useMemo(() => {
+    const counts = new Map<number, number>()
+    items.forEach((item) => {
+      counts.set(item.productId, (counts.get(item.productId) ?? 0) + 1)
+    })
+    return counts
+  }, [items])
+
   return (
     <div className="flex flex-col w-full gap-5 pb-20">
       {products.map((product) => (
         <CardProduct
-          key={product.name}
+          key={product.id}
+          id={product.id}
           name={product.name}
           price={product.price}
-          amount={product.amount}
+          amount={productCounts.get(product.id) ?? 0}
           category={product.category}
           img={product.img}
-          ingredients={ingredients}
-          type={product.type}
+          ingredients={product.ingredients}
+          type="client"
         />
       ))}
     </div>
