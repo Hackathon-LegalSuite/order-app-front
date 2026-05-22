@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import Pagelogin from '@/features/login/components/PageLogin.tsx'
 import OrdersPage from '@features/orders/components/Page.tsx'
+import InitProducts from '@/features/products/components/InitProducts.tsx'
 
 const isAuthenticated = () => {
 	if (typeof window === 'undefined') {
@@ -25,6 +26,7 @@ const AppRouter = () => {
 					path="/orders"
 					element={loggedIn ? <OrdersPage /> : <Navigate to="/login" replace />}
 				/>
+				<Route path="/init/:idmesa" element={<InitProducts />} />
 				<Route path="*" element={<Navigate to="/login" replace />} />
 			</Routes>
 		</BrowserRouter>

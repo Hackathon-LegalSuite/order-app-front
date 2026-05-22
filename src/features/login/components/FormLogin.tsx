@@ -1,5 +1,5 @@
 import Input from "@/shared/components/ui/Input.tsx";
-import Button from "@/shared/components/ui/button.tsx";
+import Button from "@/shared/components/ui/Button.tsx";
 
 import { CircleUser, KeySquare, ArrowRight } from "lucide-react";
 import meseros from "@/assets/images/meseros.png";

@@ -21,7 +21,7 @@ const Input = ({ label, icon, labelClassName, activeClassName, ...props }: Input
         </span>
       ) : null}
       <span
-        className={`flex items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-black/5 transition focus-within:ring-2 ${activeClass}`}
+        className={`flex items-center gap-2 rounded-xl bg-white px-3 py-2 ring-1 ring-black/5 transition focus-within:ring-2 ${activeClass}`}
       >
         {icon ? <span className="text-primary">{icon}</span> : null}
         <input
