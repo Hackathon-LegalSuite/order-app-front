@@ -1,18 +1,18 @@
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
-import { getProductById } from '@/features/products/data/products.ts'
 import { useCartStore } from '@store/cartStore.ts'
+import { useProductsStore } from '@store/productsStore.ts'
 
 const ListOrder = () => {
   const items = useCartStore((state) => state.items)
+  const updateItemExclusions = useCartStore((state) => state.updateItemExclusions)
+  const removeItem = useCartStore((state) => state.removeItem)
+  const products = useProductsStore((state) => state.products)
 
   return (
     <div className="flex flex-col w-full gap-5 pb-20">
       {items.map((item) => {
-        const product = getProductById(item.productId)
-
-        if (!product) {
-          return null
-        }
+        const product = products.find((p) => p.id === item.productId)
+        if (!product) return null
 
         return (
           <CardProduct
@@ -25,9 +25,11 @@ const ListOrder = () => {
             img={product.img}
             ingredients={product.ingredients}
             type="client"
-            defaultExpanded
-            readonlyIngredients
             excludedIngredientIds={item.excludedIngredientIds}
+            showExceptionDot={item.excludedIngredientIds.length > 0}
+            onConfirm={(excluded) => updateItemExclusions(item.id, excluded)}
+            onCancel={() => {}}
+            onDelete={() => removeItem(item.id)}
           />
         )
       })}

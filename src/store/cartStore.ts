@@ -13,6 +13,7 @@ type CartState = {
   addItem: (productId: number, excludedIngredientIds?: number[]) => void
   removeItem: (id: string) => void
   removeLastItemByProduct: (productId: number) => void
+  updateItemExclusions: (id: string, excludedIngredientIds: number[]) => void
   clearCart: () => void
 }
 
@@ -62,6 +63,14 @@ export const useCartStore = create<CartState>()(
             items: state.items.filter((_, index) => index !== removeIndex),
           }
         }),
+      updateItemExclusions: (id, excludedIngredientIds) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id
+              ? { ...item, excludedIngredientIds: normalizeExcluded(excludedIngredientIds) }
+              : item,
+          ),
+        })),
       clearCart: () => set({ items: [] }),
     }),
     {

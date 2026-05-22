@@ -1,10 +1,12 @@
 import { useMemo } from 'react'
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
-import { products } from '@/features/products/data/products.ts'
 import { useCartStore } from '@store/cartStore.ts'
+import { useProducts } from '@/features/products/hooks/useProducts.ts'
 
 const ListProduct = () => {
+  const { products, status, error } = useProducts()
   const items = useCartStore((state) => state.items)
+
   const productCounts = useMemo(() => {
     const counts = new Map<number, number>()
     items.forEach((item) => {
@@ -12,6 +14,22 @@ const ListProduct = () => {
     })
     return counts
   }, [items])
+
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center h-40 text-secondary">
+        Cargando productos...
+      </div>
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="flex items-center justify-center h-40 text-red-500 text-sm px-4 text-center">
+        {error ?? 'No se pudieron cargar los productos'}
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col w-full gap-5 pb-20">
@@ -26,6 +44,7 @@ const ListProduct = () => {
           img={product.img}
           ingredients={product.ingredients}
           type="client"
+          onCancel={() => {}}
         />
       ))}
     </div>

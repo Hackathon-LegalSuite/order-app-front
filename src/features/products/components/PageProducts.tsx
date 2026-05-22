@@ -5,9 +5,13 @@ import ComponentFilter from "@/shared/components/overlays/ComponentFilter.tsx";
 import ListProduct from "./ListProduct.tsx";
 import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
 import ClientLayout from "@/shared/components/layouts/ClientLayout.tsx";
+import { useNavigate, useParams } from 'react-router';
 
 
 const pageproducts = () => {
+  const { idmesa } = useParams<{ idmesa: string }>()
+  const navigate = useNavigate()
+
   return (
     <ClientLayout>
       <HeaderProducts/>
@@ -22,8 +26,12 @@ const pageproducts = () => {
           <ListProduct/>
         </div>
         <div className="absolute flex w-full bottom-0">
-          <ComponentButton text="confirmar" style={{ paddingTop: "16px", paddingBottom: "16px", fontSize: "18px" }} /> 
-
+          <ComponentButton
+            text="confirmar"
+            style={{ paddingTop: "16px", paddingBottom: "16px", fontSize: "18px" }}
+            type="button"
+            onClick={() => navigate(`/init/${idmesa}/order`)}
+          />
         </div>
 
       </main>
