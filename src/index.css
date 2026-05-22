@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-	--color-background: #fafafa;
+	--color-background: #F6F6F6;
 	--color-card: #ffffff;
 	--color-primary: #282828;
 	--color-primary-hover:#464646;
@@ -25,4 +25,13 @@ p {
 
 body {
 	font-family: "Poppins", sans-serif;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
 }
