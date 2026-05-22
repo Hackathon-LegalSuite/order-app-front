@@ -1,1 +1,1 @@
-export type Category = 'entrada' | 'plato fuerte' | 'postre' | 'bebida' | 'ia'
+export type Category = 'entrada' | 'fuerte' | 'postre' | 'bebida' | 'ia'
