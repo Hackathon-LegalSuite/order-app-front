@@ -26,7 +26,7 @@ const CardProduct = ({ name, price, amount, category, img, type }: CardProductPr
                 <div className='font-semibold text-lg'>{name}</div>
                 <div>$ {formattedPrice}</div>
                 <div className='flex justify-between'>
-                    <ComponentCount amount={4}/>
+                    <ComponentCount amount={amount}/>
                     <ComponentTag text={category} />
                 </div>
             </div>
@@ -35,6 +35,7 @@ const CardProduct = ({ name, price, amount, category, img, type }: CardProductPr
     )
  }
 
+ return null
 }
 
 export default CardProduct
