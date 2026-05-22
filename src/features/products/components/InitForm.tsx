@@ -24,7 +24,7 @@ const initform = () => {
             type="text"
             labelClassName="text-one"
             activeClassName="focus-within:ring-item"
-            icon={<CircleUserRound className="w-5 h-5" />}
+            icon={CircleUserRound}
           />
           <ComponentInput
             placeholder="En el QR encontraras el código"
@@ -32,10 +32,10 @@ const initform = () => {
             type="text"
             labelClassName="text-one"
             activeClassName="focus-within:ring-item"
-            icon={<QrCode className="w-5 h-5" />}
+            icon={QrCode}
           />
           <div className="mt-3">
-            <ComponentButton text="Continuar" icon={<ArrowRight />} />
+            <ComponentButton text="Continuar" icon={ArrowRight} />
           </div>
         </div>
       </div>
