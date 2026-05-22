@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
-import LoginPage from '@features/login/components/Page.tsx'
+import Pagelogin from '@/features/login/components/PageLogin.tsx'
 import OrdersPage from '@features/orders/components/Page.tsx'
 
 const isAuthenticated = () => {
@@ -19,7 +19,7 @@ const AppRouter = () => {
 				<Route path="/" element={<Navigate to="/login" replace />} />
 				<Route
 					path="/login"
-					element={loggedIn ? <Navigate to="/orders" replace /> : <LoginPage />}
+					element={loggedIn ? <Navigate to="/orders" replace /> :  <Pagelogin />}
 				/>
 				<Route
 					path="/orders"

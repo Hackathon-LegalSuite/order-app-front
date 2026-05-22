@@ -14,3 +14,15 @@
 	--color-two: #fcfcfc;
     --color-item: #c7d27f;
 }
+
+h1 {
+	@apply text-3xl font-medium;
+}
+
+p {
+	@apply text-base;
+}
+
+body {
+	font-family: "Poppins", sans-serif;
+}
