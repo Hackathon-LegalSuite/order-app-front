@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import Pagelogin from '@/features/login/components/PageLogin.tsx'
-import OrdersPage from '@features/orders/components/Page.tsx'
+import PageOrder from '@/features/orders/components/PageOrder.tsx'
 import InitProducts from '@/features/products/components/InitProducts.tsx'
 import PageProducts from '@/features/products/components/PageProducts.tsx'
 
@@ -24,8 +24,8 @@ const AppRouter = () => {
 					element={loggedIn ? <Navigate to="/orders" replace /> :  <Pagelogin />}
 				/>
 				<Route
-					path="/orders"
-					element={loggedIn ? <OrdersPage /> : <Navigate to="/login" replace />}
+					path="/init/:idmesa/order"
+					element={<PageOrder /> }
 				/>
 				<Route path="/init/:idmesa" element={<InitProducts />} />
 				<Route path="/init/:idmesa/products" element={<PageProducts />} />

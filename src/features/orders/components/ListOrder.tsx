@@ -1,15 +1,7 @@
 import type { CardProductProps } from "@/shared/components/ui/CardProduct.tsx"
 import CardProduct from "@/shared/components/ui/CardProduct.tsx"
 
-type Product = Omit<CardProductProps, "price" | "ingredients"> & { price: number }
-
-const ingredients = [
-  { id: 1, label: "Platano" },
-  { id: 2, label: "Lentejas" },
-  { id: 3, label: "Carne Molida" },
-  { id: 4, label: "Tomate" },
-  { id: 5, label: "Pico de gallo" },
-]
+type Product = Omit<CardProductProps, "price" | "ingredients"> & { price: number; ingredients: Array<{ id: number; label: string }> }
 
 const products: Product[] = [
   {
@@ -19,26 +11,32 @@ const products: Product[] = [
     category: "fuerte",
     img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
     type: "client",
+    ingredients: [
+      { id: 1, label: "Platano" },
+      { id: 2, label: "Lentejas" },
+      { id: 3, label: "Carne Molida" },
+      { id: 4, label: "Tomate" },
+      { id: 5, label: "Pico de gallo" },
+    ],
   },
   {
-    name: "Hamburguesa Doble",
-    price: 120000,
-    amount: 1,
+    name: "Hamburguesa Clasica",
+    price: 100000,
+    amount: 2,
     category: "fuerte",
     img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
     type: "client",
-  },
-  {
-    name: "Hamburguesa BBQ",
-    price: 110000,
-    amount: 3,
-    category: "fuerte",
-    img: "https://cdn.prod.website-files.com/5edad490415d3af51ed48281/64ce51a538241ed4629d056c_menu-muy-casero-arroz-lentejas-barato-rico-sabor-fresco-frijoles-pollo-carne%20(4).png",
-    type: "client",
+    ingredients: [
+      { id: 1, label: "Platano" },
+      { id: 2, label: "Lentejas" },
+      { id: 3, label: "Carne Molida" },
+      { id: 4, label: "Tomate" },
+      { id: 5, label: "Pico de gallo" },
+    ],
   }
 ]
 
-const ListProduct = () => {
+const ListOrder = () => {
   return (
     <div className="flex flex-col w-full gap-5 pb-20">
       {products.map((product) => (
@@ -49,7 +47,7 @@ const ListProduct = () => {
           amount={product.amount}
           category={product.category}
           img={product.img}
-          ingredients={ingredients}
+          ingredients={product.ingredients}
           type={product.type}
         />
       ))}
@@ -57,4 +55,4 @@ const ListProduct = () => {
   )
 }
 
-export default ListProduct
+export default ListOrder

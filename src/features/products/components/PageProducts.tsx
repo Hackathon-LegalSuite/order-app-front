@@ -1,15 +1,15 @@
 import ComponentInput from "@/shared/components/ui/ComponentInput.tsx"
-import HeaderProducts from "./HeaderProducts.tsx"
+import HeaderProducts from "@/shared/components/ui/HeaderProducts.tsx"
 import { Search } from 'lucide-react';
 import ComponentFilter from "@/shared/components/overlays/ComponentFilter.tsx";
 import ListProduct from "./ListProduct.tsx";
 import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
+import ClientLayout from "@/shared/components/layouts/ClientLayout.tsx";
 
 
 const pageproducts = () => {
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-item">
-      <div className="flex flex-col w-full max-w-4xl bg-background h-screen py-8 px-6">
+    <ClientLayout>
       <HeaderProducts/>
       <main className=" relative flex flex-col gap-5 w-full mt-6 flex-1 min-h-0">
         <div>
@@ -27,8 +27,7 @@ const pageproducts = () => {
         </div>
 
       </main>
-      </div>
-    </div>
+    </ClientLayout>
   )
 }
 
