@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
-import LoginPage from '@features/login/components/Page.tsx'
+import Pagelogin from '@/features/login/components/PageLogin.tsx'
 import OrdersPage from '@features/orders/components/Page.tsx'
+import InitProducts from '@/features/products/components/InitProducts.tsx'
 
 const isAuthenticated = () => {
 	if (typeof window === 'undefined') {
@@ -19,12 +20,13 @@ const AppRouter = () => {
 				<Route path="/" element={<Navigate to="/login" replace />} />
 				<Route
 					path="/login"
-					element={loggedIn ? <Navigate to="/orders" replace /> : <LoginPage />}
+					element={loggedIn ? <Navigate to="/orders" replace /> :  <Pagelogin />}
 				/>
 				<Route
 					path="/orders"
 					element={loggedIn ? <OrdersPage /> : <Navigate to="/login" replace />}
 				/>
+				<Route path="/init/:idmesa" element={<InitProducts />} />
 				<Route path="*" element={<Navigate to="/login" replace />} />
 			</Routes>
 		</BrowserRouter>
