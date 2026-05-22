@@ -1,5 +1,5 @@
-import Input from "@/shared/components/ui/Input.tsx";
-import Button from "@/shared/components/ui/Button.tsx";
+import ComponentInput from "@/shared/components/ui/ComponentInput.tsx";
+import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
 
 import { CircleUser, KeySquare, ArrowRight } from "lucide-react";
 import meseros from "@/assets/images/meseros.png";
@@ -13,14 +13,14 @@ const FormLogin = () => {
           Por Favor ingresa tu usuario y contraseña para comenzar
         </p>
         <div className="flex flex-col w-full gap-6">
-          <Input
+          <ComponentInput
             placeholder="Ingresa tu usuario"
             label="Tu usuario"
             labelClassName="text-two"
             activeClassName="focus-within:ring-item"
             icon={<CircleUser className="w-5 h-5" />}
           />
-          <Input
+          <ComponentInput
             placeholder="Ingresa tu contraseña"
             label="Tu contraseña"
             type="password"
@@ -29,7 +29,7 @@ const FormLogin = () => {
             icon={<KeySquare className="w-5 h-5" />}
           />
           <div className="flex items-center justify-end mt-2">
-          <Button
+          <ComponentButton
             text="Iniciar sesión"
             color="bg-item"
             icon={<ArrowRight className="w-5 h-5" />}

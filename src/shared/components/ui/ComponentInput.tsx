@@ -8,7 +8,7 @@ type InputProps = ComponentPropsWithoutRef<'input'> & {
   activeClassName?: string
 }
 
-const Input = ({ label, icon, labelClassName, activeClassName, ...props }: InputProps) => {
+const ComponentInput = ({ label, icon, labelClassName, activeClassName, ...props }: InputProps) => {
   const labelClass = labelClassName?.trim() ? labelClassName : ''
   const activeClass = activeClassName?.trim()
     ? activeClassName
@@ -33,4 +33,4 @@ const Input = ({ label, icon, labelClassName, activeClassName, ...props }: Input
   )
 }
 
-export default Input
+export default ComponentInput

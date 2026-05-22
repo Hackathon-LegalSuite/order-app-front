@@ -6,7 +6,7 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
   color?: string
 }
 
-const Button = ({ text, icon, type = 'submit', color, ...props }: ButtonProps) => {
+const ComponentButton = ({ text, icon, type = 'submit', color, ...props }: ButtonProps) => {
   const colorClass = color?.trim() ? color : 'bg-primary'
   return (
     <button
@@ -20,4 +20,4 @@ const Button = ({ text, icon, type = 'submit', color, ...props }: ButtonProps) =
   )
 }
 
-export default Button
+export default ComponentButton

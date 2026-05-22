@@ -1,5 +1,5 @@
-import Input from "@/shared/components/ui/Input.tsx";
-import Button from "@/shared/components/ui/Button.tsx";
+import ComponentInput from "@/shared/components/ui/ComponentInput.tsx";
+import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
 import meseros from "@assets/images/meseros.png";
 
 import { CircleUserRound, QrCode, ArrowRight } from "lucide-react";
@@ -18,7 +18,7 @@ const initform = () => {
           </p>
         </div>
         <div className="flex flex-col gap-4 border-red-400 w-full">
-          <Input
+          <ComponentInput
             placeholder="Ingresa tu nombre"
             label="Tu nombre"
             type="text"
@@ -26,7 +26,7 @@ const initform = () => {
             activeClassName="focus-within:ring-item"
             icon={<CircleUserRound className="w-5 h-5" />}
           />
-          <Input
+          <ComponentInput
             placeholder="En el QR encontraras el código"
             label="Código mesa"
             type="text"
@@ -35,7 +35,7 @@ const initform = () => {
             icon={<QrCode className="w-5 h-5" />}
           />
           <div className="mt-3">
-            <Button text="Continuar" icon={<ArrowRight />} />
+            <ComponentButton text="Continuar" icon={<ArrowRight />} />
           </div>
         </div>
       </div>
