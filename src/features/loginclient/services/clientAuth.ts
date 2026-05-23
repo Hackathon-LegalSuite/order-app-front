@@ -38,5 +38,11 @@ export const loginClient = async (
     `/auth/cliente/${mesaId}`,
     requestBody,
   )
-  return { ...data, expiresAt: Date.now() + parseExpiresInMs(data.expiresIn) }
+  const { mesaId: responseMesaId, expiresIn, ...authData } = data
+
+  return {
+    ...authData,
+    mesaId: responseMesaId ?? mesaId,
+    expiresAt: Date.now() + parseExpiresInMs(expiresIn),
+  }
 }
