@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { useProducts } from '@/features/products/hooks/useProducts.ts'
+import { useProducts } from '@/features/productclient/hooks/useProducts.ts'
 
-const ListProduct = () => {
+const ListProductClient = () => {
   const { products, status, error } = useProducts()
   const items = useCartStore((state) => state.items)
 
@@ -51,4 +51,4 @@ const ListProduct = () => {
   )
 }
 
-export default ListProduct
+export default ListProductClient

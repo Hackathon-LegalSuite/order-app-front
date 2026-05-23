@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import Initform from './InitForm.tsx'
+import FormLoginClient from './FormLoginClient.tsx'
 import { useClientAuthStore, selectClientIsValid } from '@store/clientAuthStore.ts'
 
-const InitProducts = () => {
+const PageLoginClient = () => {
   const { idmesa } = useParams<{ idmesa: string }>()
   const navigate = useNavigate()
   const auth = useClientAuthStore((state) => state.auth)
@@ -19,10 +19,11 @@ const InitProducts = () => {
 
   console.log('ID da mesa:', idmesa)
 
-  return( <div className="w-full h-screen flex items-center justify-center bg-item px-6 py-9">
-    <Initform />
-
-  </div>)
+  return (
+    <div className="w-full h-screen flex items-center justify-center bg-item px-6 py-9">
+      <FormLoginClient />
+    </div>
+  )
 }
 
-export default InitProducts
+export default PageLoginClient

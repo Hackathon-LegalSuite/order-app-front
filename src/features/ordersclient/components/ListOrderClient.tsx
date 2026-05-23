@@ -1,8 +1,8 @@
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { useProductsStore } from '@/features/products/store/productsStore.ts'
+import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
 
-const ListOrder = () => {
+const ListOrderClient = () => {
   const items = useCartStore((state) => state.items)
   const updateItemExclusions = useCartStore((state) => state.updateItemExclusions)
   const removeItem = useCartStore((state) => state.removeItem)
@@ -37,4 +37,4 @@ const ListOrder = () => {
   )
 }
 
-export default ListOrder
+export default ListOrderClient

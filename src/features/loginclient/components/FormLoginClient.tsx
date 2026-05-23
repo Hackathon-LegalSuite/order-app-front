@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import ComponentInput from "@/shared/components/ui/ComponentInput.tsx";
-import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
-import meseros from "@assets/images/meseros.png";
-import { useClientAuth } from '@/features/products/hooks/useClientAuth.ts'
+import ComponentInput from '@/shared/components/ui/ComponentInput.tsx'
+import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
+import meseros from '@assets/images/meseros.png'
+import { useClientAuth } from '@/features/loginclient/hooks/useClientAuth.ts'
 import ComponentFloatingMessage from '@/shared/components/overlays/ComponentFloatingMessage.tsx'
 
-import { CircleUserRound, QrCode, ArrowRight } from "lucide-react";
+import { CircleUserRound, QrCode, ArrowRight } from 'lucide-react'
 
-const initform = () => {
+const FormLoginClient = () => {
   const { idmesa } = useParams<{ idmesa: string }>()
   const [clientName, setClientName] = useState('')
   const [mesaCode, setMesaCode] = useState('')
@@ -92,7 +92,7 @@ const initform = () => {
         <img src={meseros} alt="" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default initform;
+export default FormLoginClient

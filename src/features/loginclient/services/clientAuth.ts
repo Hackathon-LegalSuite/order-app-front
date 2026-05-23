@@ -1,5 +1,5 @@
 import { http } from '@/services/http.ts'
-import type { ClientAuthData, ClientAuthRequest, ClientAuthResponse } from '@/features/products/types/clientAuth.types.ts'
+import type { ClientAuthData, ClientAuthRequest, ClientAuthResponse } from '@/features/loginclient/types/clientAuth.types.ts'
 
 const DEFAULT_EXPIRES_MS = 6 * 60 * 60 * 1000
 

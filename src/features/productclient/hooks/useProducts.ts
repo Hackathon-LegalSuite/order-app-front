@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import axios from 'axios'
-import { useProductsStore } from '@/features/products/store/productsStore.ts'
-import { fetchProducts } from '@/features/products/services/productsService.ts'
+import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
+import { fetchProducts } from '@/features/productclient/services/productsService.ts'
 
 export const useProducts = () => {
   const { products, status, error, setProducts, setStatus } = useProductsStore()

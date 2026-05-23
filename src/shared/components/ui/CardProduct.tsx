@@ -1,6 +1,6 @@
 import type { Category } from '@/shared/types/Categoy.types.ts'
 import { CATEGORY_LABEL } from '@/shared/types/Categoy.types.ts'
-import type { Ingredient } from '@/features/products/types/products.types.ts'
+import type { Ingredient } from '@/features/productclient/types/products.types.ts'
 import ComponentCount from '@/shared/components/overlays/ComponentCount.tsx'
 import ComponentTag from '@/shared/components/overlays/ComponenTag.tsx'
 import { Check, SquarePen, X, Trash2 } from 'lucide-react'

@@ -4,7 +4,7 @@ import ComponentButton from "@/shared/components/ui/ComponentButton.tsx";
 import { CircleUser, KeySquare, ArrowRight } from "lucide-react";
 import meseros from "@/assets/images/meseros.png";
 
-const FormLogin = () => {
+const FormLoginChef = () => {
   return (
     <div className="w-full flex flex-col items-center justify-between bg-one px-12 pt-8 rounded-2xl gap-6 max-w-md border border-black/5 shadow-lg">
       <div className="flex flex-col items-center gap-4 text-center">
@@ -45,4 +45,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default FormLoginChef;

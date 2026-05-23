@@ -1,6 +1,6 @@
 import { http } from '@/services/http.ts'
 import type { Category } from '@/shared/types/Categoy.types.ts'
-import type { Product, Ingredient } from '@/features/products/types/products.types.ts'
+import type { Product, Ingredient } from '@/features/productclient/types/products.types.ts'
 
 type ApiIngredient = {
   id: number

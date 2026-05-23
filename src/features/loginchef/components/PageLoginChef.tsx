@@ -1,6 +1,6 @@
-import FormLogin from './FormLogin.tsx'
+import FormLoginChef from './FormLoginChef.tsx'
 
-const PageLogin = () => {
+const PageLoginChef = () => {
   return (
     <main className="w-screen h-screen flex flex-col items-center justify-center gap-10 px-4 bg-background">
       <img
@@ -8,9 +8,9 @@ const PageLogin = () => {
         alt="Login Logo"
         className="w-64"
       />
-      <FormLogin />
+      <FormLoginChef />
     </main>
   )
 }
 
-export default PageLogin
+export default PageLoginChef
