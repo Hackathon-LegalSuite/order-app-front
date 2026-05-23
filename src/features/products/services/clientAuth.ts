@@ -1,21 +1,5 @@
 import { http } from '@/services/http.ts'
-
-export type ClientAuthResponse = {
-  expiresIn: string
-  mesaId: number
-  nombre: string
-  rol: string
-  token: string
-}
-
-export type ClientAuthData = ClientAuthResponse & {
-  expiresAt: number
-}
-
-export type ClientAuthRequest = {
-  nombre: string
-  codigoMesa: string
-}
+import type { ClientAuthData, ClientAuthRequest, ClientAuthResponse } from '@/features/products/types/clientAuth.types.ts'
 
 const DEFAULT_EXPIRES_MS = 6 * 60 * 60 * 1000
 

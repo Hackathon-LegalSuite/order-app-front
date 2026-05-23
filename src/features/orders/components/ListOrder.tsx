@@ -1,6 +1,6 @@
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { useProductsStore } from '@store/productsStore.ts'
+import { useProductsStore } from '@/features/products/store/productsStore.ts'
 
 const ListOrder = () => {
   const items = useCartStore((state) => state.items)

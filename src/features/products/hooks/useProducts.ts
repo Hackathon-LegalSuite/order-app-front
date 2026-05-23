@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import axios from 'axios'
-import { useProductsStore } from '@store/productsStore.ts'
+import { useProductsStore } from '@/features/products/store/productsStore.ts'
 import { fetchProducts } from '@/features/products/services/productsService.ts'
 
 export const useProducts = () => {

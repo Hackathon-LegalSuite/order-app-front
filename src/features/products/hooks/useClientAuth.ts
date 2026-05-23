@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import axios from 'axios'
 import { loginClient } from '@/features/products/services/clientAuth.ts'
 import { useClientAuthStore } from '@store/clientAuthStore.ts'
-import type { ClientAuthRequest } from '@/features/products/services/clientAuth.ts'
+import type { ClientAuthRequest } from '@/features/products/types/clientAuth.types.ts'
 
 export const useClientAuth = () => {
   const { status, error, setAuth, setStatus } = useClientAuthStore()

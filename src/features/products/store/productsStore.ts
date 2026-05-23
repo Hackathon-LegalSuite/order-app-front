@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Product } from '@/features/products/data/products.ts'
+import type { Product } from '@/features/products/types/products.types.ts'
 
 type ProductsState = {
   products: Product[]
