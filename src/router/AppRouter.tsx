@@ -4,17 +4,10 @@ import PageLoginClient from '@/features/loginclient/components/PageLoginClient.t
 import PageOrderClient from '@/features/ordersclient/components/PageOrderClient.tsx'
 import PageProductsClient from '@/features/productclient/components/PageProductsClient.tsx'
 import ClientAuthGuard from '@/router/ClientAuthGuard.tsx'
-
-const isAuthenticated = () => {
-	if (typeof window === 'undefined') {
-		return false
-	}
-
-	return Boolean(localStorage.getItem('auth_token'))
-}
+import { useChefAuthStore, selectChefIsValid } from '@store/chefAuthStore.ts'
 
 const AppRouter = () => {
-	const loggedIn = isAuthenticated()
+	const loggedIn = useChefAuthStore(selectChefIsValid)
 
 	return (
 		<BrowserRouter>
