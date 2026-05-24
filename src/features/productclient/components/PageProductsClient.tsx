@@ -1,6 +1,6 @@
-import ComponentInput from '@/shared/components/ui/ComponentInput.tsx'
+
 import HeaderProducts from '@/shared/components/ui/HeaderProducts.tsx'
-import { Search } from 'lucide-react'
+
 import ComponentFilter from '@/shared/components/overlays/ComponentFilter.tsx'
 import ListProductClient from './ListProductClient.tsx'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
@@ -16,9 +16,6 @@ const PageProductsClient = () => {
     <ClientLayout>
       <HeaderProducts />
       <main className=" relative flex flex-col gap-5 w-full mt-6 flex-1 min-h-0">
-        <div>
-          <ComponentInput icon={Search} />
-        </div>
         <div>
           <ComponentFilter />
         </div>
