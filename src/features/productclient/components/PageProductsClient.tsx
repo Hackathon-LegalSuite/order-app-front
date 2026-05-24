@@ -25,14 +25,19 @@ const PageProductsClient = () => {
         <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar">
           <ListProductClient />
         </div>
-        <div className="absolute flex w-full bottom-0">
-          <ComponentButton
-            text="Ir a Carrito"
-            style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }}
-            type="button"
-            onClick={() => navigate(`/init/${idmesa}/order`)}
-            icon={ShoppingCart}
-          />
+        <div
+          className="fixed bottom-0 left-0 right-0 flex justify-center px-6 z-30"
+          style={{ paddingBottom: 'calc(16px + env(safe-area-inset-bottom))' }}
+        >
+          <div className="w-full max-w-4xl">
+            <ComponentButton
+              text="Ir a Carrito"
+              style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }}
+              type="button"
+              onClick={() => navigate(`/init/${idmesa}/order`)}
+              icon={ShoppingCart}
+            />
+          </div>
         </div>
 
       </main>
