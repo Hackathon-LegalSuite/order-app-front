@@ -39,7 +39,7 @@ const FormLoginChef = () => {
     setFieldErrors({})
     const auth = await login(result.data)
     if (auth) {
-      navigate('/orders', { replace: true })
+        navigate('/orderchef', { replace: true })
     }
   }
 

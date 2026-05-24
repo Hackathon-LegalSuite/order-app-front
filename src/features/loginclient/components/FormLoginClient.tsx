@@ -84,7 +84,7 @@ const FormLoginClient = () => {
             onChange={(event) => setMesaCode(event.target.value)}
           />
           <div className="mt-3">
-            <ComponentButton text="Continuar" icon={ArrowRight} />
+            <ComponentButton text="Continuar" icon={ArrowRight} loading={status === 'loading'} />
           </div>
         </form>
       </div>
