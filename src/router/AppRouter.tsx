@@ -26,14 +26,10 @@ const AppRouter = () => {
 				<Route path="/init" element={<PageLoginClient />} />
 				<Route path="/init/:idmesa" element={<PageLoginClient />} />
 				<Route element={<ClientAuthGuard />}>
-					<Route
-						path="/init/:idmesa/order"
-						element={<PageOrderClient />}
-					/>
-					<Route
-						path="/init/:idmesa/products"
-						element={<PageProductsClient />}
-					/>
+					<Route path="/init/:idmesa/order" element={<Navigate to="car" replace />} />
+					<Route path="/init/:idmesa/order/car" element={<PageOrderClient />} />
+					<Route path="/init/:idmesa/order/products" element={<PageOrderClient />} />
+					<Route path="/init/:idmesa/products" element={<PageProductsClient />} />
 				</Route>
 				<Route path="*" element={<Navigate to="/loginchef" replace />} />
 			</Routes>

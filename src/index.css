@@ -13,6 +13,7 @@
 	--color-one: var(--color-primary);
 	--color-two: #fcfcfc;
     --color-item: #bed42d;
+    --color-success: #22c55e;
 }
 
 h1 {

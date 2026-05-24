@@ -1,3 +1,5 @@
+import './CardProductChef.css'
+
 interface Ingredient {
   name: string
   available: boolean
@@ -9,10 +11,10 @@ interface CardProductChefProps {
   table: number
   mesero?: string
   plates?: number
-  category?: string
   ingredients: Ingredient[]
-  status?: 'waiting' | 'in-progress' | 'done'
+  status?: 'waiting' | 'in-progress' | 'ready' | 'done'
   loading?: boolean
+  flashing?: boolean
   onStatusChange?: () => void
 }
 
@@ -22,22 +24,26 @@ const CardProductChef = ({
   table,
   mesero,
   plates,
-  category,
   ingredients,
   status = 'waiting',
   loading = false,
+  flashing = false,
   onStatusChange,
 }: CardProductChefProps) => {
   const statusConfig = {
     waiting:      { bg: 'bg-danger',  label: 'Empezar a cocinar' },
     'in-progress': { bg: 'bg-warning', label: 'Marcar como listo' },
-    done:         { bg: 'bg-item',    label: 'Listo para entregar' },
+    ready:        { bg: 'bg-danger',   label: 'Marcar como entregado' },
+    done:         { bg: 'bg-success',  label: 'Entregado' },
   }
 
   const { bg, label } = statusConfig[status]
 
   return (
-    <div className='flex flex-col rounded-2xl overflow-hidden w-full'>
+    <div className='relative flex flex-col rounded-2xl overflow-hidden w-full'>
+      {flashing && (
+        <div className='animate-flash-success absolute inset-0 bg-success rounded-2xl pointer-events-none z-10' />
+      )}
       {/* Left section */}
       <div className='flex flex-col flex-1 min-w-0'>
         {/* Header */}
@@ -58,9 +64,7 @@ const CardProductChef = ({
                 <h3 className='font-semibold text-lg uppercase leading-tight'>{title}</h3> 
               </div>
               <div>
-                 <span className='bg-item text-primary text-xs font-semibold px-3 py-1 rounded-full'>
-                {category}
-              </span>
+
               </div>
               
             </div>
@@ -87,7 +91,8 @@ const CardProductChef = ({
               }`}>
                 {status === 'waiting' ? 'Sin empezar' :
                  status === 'in-progress' ? 'Cocinándose' :
-                 'Listo'}
+                 status === 'ready' ? 'Listo para entregar' :
+                 'Entregado'}
               </span>
               
             </div>
@@ -99,9 +104,11 @@ const CardProductChef = ({
           {ingredients.map((ingredient, index) => (
             <div key={index} className='flex items-center gap-2'>
               <span
-                className={`w-3 h-3 rounded-full shrink-0 ${ingredient.available ? 'bg-item' : 'bg-false'}`}
+                className={`w-3 h-3 rounded-full shrink-0 ${ingredient.available ? 'bg-item' : 'bg-secondary'}`}
               />
-              <span className='text-two text-sm'>{ingredient.name}</span>
+              <span className={`text-two text-sm ${ingredient.available ? '' : 'line-through opacity-60'}`}>
+                {ingredient.name}
+              </span>
             </div>
           ))}
         </div>
