@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
+import EditProduct from '@/shared/components/ui/EditProduct.tsx'
+import ComponentFloatingMessage from '@/shared/components/overlays/ComponentFloatingMessage.tsx'
 import { useOrders } from '@/features/ordersclient/hooks/useOrders.ts'
 import { useDeleteOrderItem } from '@/features/ordersclient/hooks/useDeleteOrderItem.ts'
-import type { PedidoEstado } from '@/features/ordersclient/types/order.types.ts'
+import { useProducts } from '@/features/productclient/hooks/useProducts.ts'
+import type { PedidoEstado, PedidoItem } from '@/features/ordersclient/types/order.types.ts'
 
 const estadoTag: Record<PedidoEstado, { text: string; className: string }> = {
   EN_ESPERA:      { text: 'Recibido por el chef',  className: 'bg-warning text-primary'   },
@@ -14,12 +17,21 @@ const estadoTag: Record<PedidoEstado, { text: string; className: string }> = {
 const ListOrderClient = () => {
   const { orders: fetched, status, error } = useOrders()
   const [orders, setOrders] = useState(fetched)
+  const [viewItem, setViewItem] = useState<PedidoItem | null>(null)
+  const { products } = useProducts()
 
   useEffect(() => { setOrders(fetched) }, [fetched])
 
-  const { remove } = useDeleteOrderItem((itemId) => {
+  const { remove, message } = useDeleteOrderItem((itemId) => {
     setOrders((prev) => prev.filter((o) => o.itemId !== itemId))
   })
+
+  const viewProduct = viewItem ? products.find((p) => p.id === viewItem.platoId) : null
+  const viewExcluded = viewItem && viewProduct
+    ? viewProduct.ingredients
+        .filter((i) => viewItem.ingredientesExcluidos.includes(i.label))
+        .map((i) => i.id)
+    : []
 
   if (status === 'loading') {
     return (
@@ -56,26 +68,43 @@ const ListOrderClient = () => {
   const groupEntries = Array.from(groups.entries())
 
   return (
-    <div className="flex flex-col w-full gap-5 pb-20">
-      {groupEntries.map(([pedidoId, items], groupIndex) => (
-        <div key={pedidoId} className="flex flex-col gap-3">
-          {groupIndex > 0 && <hr className="border-secondary/30" />}
-          <span className="text-xs text-secondary font-medium px-1">Pedido #{pedidoId}</span>
-          {items.map((order) => (
-            <CardProduct
-              key={order.itemId}
-              name={order.platoNombre}
-              price={order.precio}
-              img={order.imagenUrl}
-              statusTag={estadoTag[order.estado]}
-              {...(order.estado === 'EN_ESPERA' && {
-                onDelete: () => remove(order.pedidoId, order.itemId),
-              })}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
+    <>
+      {message && (
+        <ComponentFloatingMessage message={message} variant="info" autoHideMs={3000} />
+      )}
+      <div className="flex flex-col w-full gap-5 pb-20">
+        {groupEntries.map(([pedidoId, items], groupIndex) => (
+          <div key={pedidoId} className="flex flex-col gap-3">
+            {groupIndex > 0 && <hr className="border-secondary/30" />}
+            <span className="text-xs text-secondary font-medium px-1">Pedido #{pedidoId}</span>
+            {items.map((order) => (
+              <CardProduct
+                key={order.itemId}
+                name={order.platoNombre}
+                price={order.precio}
+                img={order.imagenUrl}
+                isEdited={order.ingredientesExcluidos.length > 0}
+                statusTag={estadoTag[order.estado]}
+                onClick={() => setViewItem(order)}
+                {...(order.estado === 'EN_ESPERA' && {
+                  onDelete: () => remove(order.pedidoId, order.itemId),
+                })}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <EditProduct
+        isOpen={viewItem !== null}
+        id={viewItem?.platoId ?? 0}
+        name={viewItem?.platoNombre ?? ''}
+        ingredients={viewProduct?.ingredients ?? []}
+        initialExcluded={viewExcluded}
+        mode="view"
+        onClose={() => setViewItem(null)}
+      />
+    </>
   )
 }
 
