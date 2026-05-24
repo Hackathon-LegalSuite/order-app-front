@@ -3,7 +3,7 @@ import GridOrderChef from "./GridOrderChef.tsx";
 
 const PageOrderChef = () => {
   return (
-    <div className="p-6 bg-background h-screen">
+    <div className="p-6 bg-background h-full ">
       <div>
         <HeaderChef />
       </div>

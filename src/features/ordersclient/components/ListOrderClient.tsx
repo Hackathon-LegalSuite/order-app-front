@@ -4,12 +4,11 @@ import EditProduct from '@/shared/components/ui/EditProduct.tsx'
 import ComponentFloatingMessage from '@/shared/components/overlays/ComponentFloatingMessage.tsx'
 import { useOrders } from '@/features/ordersclient/hooks/useOrders.ts'
 import { useDeleteOrderItem } from '@/features/ordersclient/hooks/useDeleteOrderItem.ts'
-import { useProducts } from '@/features/productclient/hooks/useProducts.ts'
 import type { PedidoEstado, PedidoItem } from '@/features/ordersclient/types/order.types.ts'
 
 const estadoTag: Record<PedidoEstado, { text: string; className: string }> = {
-  EN_ESPERA:      { text: 'Recibido por el chef',  className: 'bg-warning text-primary'   },
-  EN_PREPARACION: { text: 'En preparación',         className: 'bg-blue-400 text-white'    },
+  EN_ESPERA:   { text: 'Recibido por el chef', className: 'bg-warning text-primary' },
+  EN_PROGRESO: { text: 'Cocinando',            className: 'bg-blue-400 text-white'  },
   LISTO:          { text: 'Preparado',              className: 'bg-item text-primary'      },
   ENTREGADO:      { text: 'Entregado',              className: 'bg-secondary text-white'   },
 }
@@ -18,18 +17,19 @@ const ListOrderClient = () => {
   const { orders: fetched, status, error } = useOrders()
   const [orders, setOrders] = useState(fetched)
   const [viewItem, setViewItem] = useState<PedidoItem | null>(null)
-  const { products } = useProducts()
-
   useEffect(() => { setOrders(fetched) }, [fetched])
 
   const { remove, message } = useDeleteOrderItem((itemId) => {
     setOrders((prev) => prev.filter((o) => o.itemId !== itemId))
   })
 
-  const viewProduct = viewItem ? products.find((p) => p.id === viewItem.platoId) : null
-  const viewExcluded = viewItem && viewProduct
-    ? viewProduct.ingredients
-        .filter((i) => viewItem.ingredientesExcluidos.includes(i.label))
+  const viewIngredients = viewItem
+    ? viewItem.ingredientes.map((i) => ({ id: i.id, label: i.nombre, required: i.obligatorio }))
+    : []
+
+  const viewExcluded = viewItem
+    ? viewItem.ingredientes
+        .filter((i) => viewItem.ingredientesExcluidos.includes(i.nombre))
         .map((i) => i.id)
     : []
 
@@ -99,7 +99,7 @@ const ListOrderClient = () => {
         isOpen={viewItem !== null}
         id={viewItem?.platoId ?? 0}
         name={viewItem?.platoNombre ?? ''}
-        ingredients={viewProduct?.ingredients ?? []}
+        ingredients={viewIngredients}
         initialExcluded={viewExcluded}
         mode="view"
         onClose={() => setViewItem(null)}
