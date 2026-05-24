@@ -7,25 +7,31 @@ interface CardProductChefProps {
   image?: string | undefined
   title: string
   table: number
-  plates: number
-  category: string
+  mesero?: string
+  plates?: number
+  category?: string
   ingredients: Ingredient[]
   status?: 'waiting' | 'in-progress' | 'done'
+  loading?: boolean
+  onStatusChange?: () => void
 }
 
 const CardProductChef = ({
   image,
   title,
   table,
+  mesero,
   plates,
   category,
   ingredients,
   status = 'waiting',
+  loading = false,
+  onStatusChange,
 }: CardProductChefProps) => {
   const statusConfig = {
-    waiting: { bg: 'bg-danger', label: 'Oprime Para empezar a cocinar ' },
-    'in-progress': { bg: 'bg-warning', label: 'Oprime para finalizar pedido ' },
-    done: { bg: 'bg-item', label: 'pedido listo para entregar por mesero' },
+    waiting:      { bg: 'bg-danger',  label: 'Empezar a cocinar' },
+    'in-progress': { bg: 'bg-warning', label: 'Marcar como listo' },
+    done:         { bg: 'bg-item',    label: 'Listo para entregar' },
   }
 
   const { bg, label } = statusConfig[status]
@@ -64,11 +70,24 @@ const CardProductChef = ({
               <span className='bg-primary text-card text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight'>
                 mesa<br />{table}
               </span>
-              <span className='bg-primary text-card text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight'>
-                platos<br />{plates}
-              </span>
-              <span className='bg-primary text-card text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight'>
-                {/*estado*/} sin <br /> empezar
+              {plates !== undefined && (
+                <span className='bg-primary text-card text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight'>
+                  platos<br />{plates}
+                </span>
+              )}
+              {mesero && (
+                <span className='bg-primary text-card text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight'>
+                  mesero<br />{mesero}
+                </span>
+              )}
+              <span className={`text-xs font-semibold px-3 py-1 rounded-lg text-center leading-tight ${
+                status === 'waiting' ? 'bg-danger text-white' :
+                status === 'in-progress' ? 'bg-warning text-primary' :
+                'bg-item text-primary'
+              }`}>
+                {status === 'waiting' ? 'Sin empezar' :
+                 status === 'in-progress' ? 'Cocinándose' :
+                 'Listo'}
               </span>
               
             </div>
@@ -88,10 +107,16 @@ const CardProductChef = ({
         </div>
       </div>
 
-      {/* Right status section */}
-      <div className={`${bg} flex flex-col items-center justify-center w-full gap-2 shrink-0 h-16`}>
-        <span className='text-white font-bold text-sm'>{label}</span>
-      </div>
+      <button
+        type="button"
+        onClick={onStatusChange}
+        disabled={loading || status === 'done'}
+        className={`${bg} flex items-center justify-center w-full gap-2 shrink-0 h-16 transition-opacity ${loading || status === 'done' ? 'opacity-60 cursor-default' : 'cursor-pointer'}`}
+      >
+        <span className='text-white font-bold text-sm'>
+          {loading ? 'Actualizando...' : label}
+        </span>
+      </button>
     </div>
   )
 }
