@@ -13,8 +13,13 @@ const PageOrderClient = () => {
         <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar">
           <ListOrderClient />
         </div>
-        <div className="absolute flex w-full bottom-0">
-          <ComponentButton text="confirmar" style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }} />
+        <div
+          className="fixed bottom-0 left-0 right-0 flex justify-center px-6 z-30"
+          style={{ paddingBottom: 'calc(16px + env(safe-area-inset-bottom))' }}
+        >
+          <div className="w-full max-w-4xl">
+            <ComponentButton text="confirmar" style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }} />
+          </div>
         </div>
       </main>
     </ClientLayout>

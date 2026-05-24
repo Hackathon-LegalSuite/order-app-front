@@ -12,7 +12,7 @@
 	--color-danger: #EF4444;
 	--color-one: var(--color-primary);
 	--color-two: #fcfcfc;
-    --color-item: #c7d27f;
+    --color-item: #bed42d;
 }
 
 h1 {
@@ -34,4 +34,5 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
 	display: none;
+	color: #bed42d;
 }
