@@ -5,13 +5,14 @@ import ComponentTag from '@/shared/components/overlays/ComponenTag.tsx'
 export type CardProductProps = {
     name: string
     price?: number
-    category: Category
+    category?: Category
     img: string
     onClick?: () => void
     isEdited?: boolean
+    statusTag?: { text: string; className: string }
 }
 
-const CardProduct = ({ name, price, category, img, onClick, isEdited = false }: CardProductProps) => {
+const CardProduct = ({ name, price, category, img, onClick, isEdited = false, statusTag }: CardProductProps) => {
     const formattedPrice =
         typeof price === 'number' ? new Intl.NumberFormat('es-CO').format(price) : ''
 
@@ -28,9 +29,13 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false }: 
                   )}
                 </div>
                 <div className='flex mt-2 text-sm'>
-                <ComponentTag text={CATEGORY_LABEL[category]} category={category} />
+                  {category && <ComponentTag text={CATEGORY_LABEL[category]} category={category} />}
+                  {statusTag && (
+                    <span className={`text-xs font-semibold px-3 py-1 rounded-2xl ${statusTag.className}`}>
+                      {statusTag.text}
+                    </span>
+                  )}
                 </div>
-                
                 <div className="flex justify-end">
                     <span className='pr-2'>$ {formattedPrice}</span>
                 </div>

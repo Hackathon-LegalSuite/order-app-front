@@ -12,3 +12,15 @@ export type OrderResponse = {
   estado: string
   createdAt: string
 }
+
+export type PedidoEstado = 'EN_ESPERA' | 'EN_PREPARACION' | 'LISTO' | 'ENTREGADO'
+
+export type PedidoItem = {
+  itemId: number
+  platoId: number
+  platoNombre: string
+  precio: number
+  imagenUrl: string
+  ingredientesExcluidos: string[]
+  estado: PedidoEstado
+}
