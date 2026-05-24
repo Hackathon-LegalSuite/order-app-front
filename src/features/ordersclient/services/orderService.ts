@@ -11,6 +11,7 @@ export const fetchOrders = async (): Promise<PedidoItem[]> => {
   return data
 }
 
-export const deleteOrderItem = async (pedidoId: number, itemId: number): Promise<void> => {
-  await http.delete(`/pedido/${pedidoId}/item/${itemId}`)
+export const deleteOrderItem = async (pedidoId: number, itemId: number): Promise<string | null> => {
+  const { data } = await http.delete<{ mensaje?: string }>(`/pedido/${pedidoId}/item/${itemId}`)
+  return data?.mensaje ?? null
 }

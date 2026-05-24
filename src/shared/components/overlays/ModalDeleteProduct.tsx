@@ -10,24 +10,24 @@ const ModalDeleteProduct = ({ name, onConfirm, onCancel }: ModalDeleteProductPro
       <div className="fixed inset-0 z-40 bg-black/50" onClick={onCancel} />
       <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
         <div className="bg-card rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4">
-          <h3 className="font-bold text-lg text-center">¿Eliminar plato?</h3>
+          <h3 className="font-bold text-lg text-center">¿Cancelar el plato?</h3>
           <p className="text-secondary text-sm text-center">
-            Se eliminará <span className="font-semibold text-one">{name}</span> de tu pedido.
+            ¿Seguro que deseas Cancelar <span className="font-semibold text-one">{name}</span> de tu pedido?
           </p>
           <div className="flex gap-3">
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 py-3 rounded-xl bg-secondary/20 text-one font-semibold text-sm"
+              className="flex-1 py-3 rounded-xl bg-secondary/20 text-primary font-semibold text-sm"
             >
-              Cancelar
+              No, mantener
             </button>
             <button
               type="button"
               onClick={onConfirm}
               className="flex-1 py-3 rounded-xl bg-danger text-white font-semibold text-sm"
             >
-              Eliminar
+              Sí, Cancelar plato
             </button>
           </div>
         </div>

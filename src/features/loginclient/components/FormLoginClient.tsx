@@ -6,24 +6,22 @@ import meseros from '@assets/images/meseros.png'
 import { useClientAuth } from '@/features/loginclient/hooks/useClientAuth.ts'
 import ComponentFloatingMessage from '@/shared/components/overlays/ComponentFloatingMessage.tsx'
 
-import { CircleUserRound, QrCode, ArrowRight } from 'lucide-react'
+import { CircleUserRound, QrCode, ArrowRight, Hash } from 'lucide-react'
 
 const FormLoginClient = () => {
   const { idmesa } = useParams<{ idmesa: string }>()
   const [clientName, setClientName] = useState('')
   const [mesaCode, setMesaCode] = useState('')
+  const [tableNumber, setTableNumber] = useState('')
   const navigate = useNavigate()
   const { login, error, status } = useClientAuth()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!idmesa) {
-      return
-    }
+    const resolvedMesaId = idmesa ? Number(idmesa) : Number(tableNumber)
 
-    const mesaId = Number(idmesa)
-    if (Number.isNaN(mesaId)) {
+    if (Number.isNaN(resolvedMesaId) || resolvedMesaId <= 0) {
       return
     }
 
@@ -31,12 +29,16 @@ const FormLoginClient = () => {
       return
     }
 
-    const auth = await login(mesaId, {
+    if (!idmesa && !tableNumber.trim()) {
+      return
+    }
+
+    const auth = await login(resolvedMesaId, {
       nombre: clientName.trim(),
       codigoMesa: mesaCode.trim(),
     })
     if (auth) {
-      navigate(`/init/${mesaId}/products`)
+      navigate(`/init/${resolvedMesaId}/products`)
     }
   }
 
@@ -73,6 +75,18 @@ const FormLoginClient = () => {
             value={clientName}
             onChange={(event) => setClientName(event.target.value)}
           />
+          {!idmesa && (
+            <ComponentInput
+              placeholder="Ingresa el número de tu mesa"
+              label="Número de mesa"
+              type="number"
+              labelClassName="text-one"
+              activeClassName="focus-within:ring-item"
+              icon={Hash}
+              value={tableNumber}
+              onChange={(event) => setTableNumber(event.target.value)}
+            />
+          )}
           <ComponentInput
             placeholder="En el QR encontraras el código"
             label="Código mesa"
