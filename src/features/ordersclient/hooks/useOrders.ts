@@ -10,8 +10,8 @@ export const useOrders = () => {
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    setStatus('loading')
+  const load = (silent = false) => {
+    if (!silent) setStatus('loading')
     fetchOrders()
       .then((data) => {
         setOrders(data)
@@ -28,6 +28,12 @@ export const useOrders = () => {
         setError(message)
         setStatus('error')
       })
+  }
+
+  useEffect(() => {
+    load()
+    const interval = setInterval(() => load(true), 8000)
+    return () => clearInterval(interval)
   }, [])
 
   return { orders, status, error }

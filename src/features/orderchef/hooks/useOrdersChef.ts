@@ -30,7 +30,11 @@ export const useOrdersChef = () => {
       })
   }
 
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    load()
+    const interval = setInterval(() => load(true), 8000)
+    return () => clearInterval(interval)
+  }, [])
 
   return { orders, status, error, refetch: () => load(true) }
 }
