@@ -102,8 +102,8 @@ const FormLoginClient = () => {
           </div>
         </form>
       </div>
-      <div>
-        <img src={meseros} alt="" />
+      <div className="flex w-full overflow-hidden">
+        <img src={meseros} alt="" className="w-full object-contain" />
       </div>
     </div>
   )

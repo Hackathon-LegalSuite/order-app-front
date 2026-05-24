@@ -27,7 +27,7 @@ const EditProduct = ({
   onConfirm,
   onDelete,
 }: EditProductProps) => {
-  const isEditable = ingredients.some((i) => !i.required)
+  const isEditable = ingredients.length > 2 && ingredients.some((i) => !i.required)
   const [excluded, setExcluded] = useState<number[]>(initialExcluded)
   const addItem = useCartStore((state) => state.addItem)
 

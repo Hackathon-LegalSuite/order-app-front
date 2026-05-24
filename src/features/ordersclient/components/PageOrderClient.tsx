@@ -5,14 +5,22 @@ import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import HeaderProducts from '@/shared/components/ui/HeaderProducts.tsx'
 import { useSubmitOrder } from '@/features/ordersclient/hooks/useSubmitOrder.ts'
 import { useCartStore } from '@store/cartStore.ts'
-import { useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router'
 
 type Tab = 'carrito' | 'pedidos'
 
 const PageOrderClient = () => {
+  const { idmesa } = useParams<{ idmesa: string }>()
+  const location = useLocation()
+  const navigate = useNavigate()
   const { confirm, status } = useSubmitOrder()
   const itemCount = useCartStore((state) => state.items.length)
-  const [tab, setTab] = useState<Tab>('carrito')
+
+  const tab: Tab = location.pathname.endsWith('/products') ? 'pedidos' : 'carrito'
+
+  const setTab = (t: Tab) => {
+    navigate(`/init/${idmesa}/order/${t === 'carrito' ? 'car' : 'products'}`)
+  }
 
   return (
     <ClientLayout>

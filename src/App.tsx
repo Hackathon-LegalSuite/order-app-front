@@ -1,5 +1,11 @@
-import AppRouter from './router/AppRouter.tsx'
+import AppRouter from "./router/AppRouter.tsx";
 
-const App = () => <AppRouter />
+const App = () => {
+  return (
+    <div  className="w-full h-screen">
+      <AppRouter />
+    </div>
+  );
+};
 
-export default App
+export default App;
