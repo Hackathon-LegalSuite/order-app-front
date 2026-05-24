@@ -1,5 +1,3 @@
-import { V } from "node_modules/react-router/dist/development/index-react-server-client-BS5F89FR.js"
-
 export interface Ingredient {
   name: string
   available: boolean
