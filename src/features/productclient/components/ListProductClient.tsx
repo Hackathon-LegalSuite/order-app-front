@@ -1,19 +1,12 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 import CardProduct from '@/shared/components/ui/CardProduct.tsx'
-import { useCartStore } from '@store/cartStore.ts'
+import EditProduct from '@/shared/components/ui/EditProduct.tsx'
 import { useProducts } from '@/features/productclient/hooks/useProducts.ts'
+import type { Product } from '@/features/productclient/types/products.types.ts'
 
 const ListProductClient = () => {
   const { products, status, error } = useProducts()
-  const items = useCartStore((state) => state.items)
-
-  const productCounts = useMemo(() => {
-    const counts = new Map<number, number>()
-    items.forEach((item) => {
-      counts.set(item.productId, (counts.get(item.productId) ?? 0) + 1)
-    })
-    return counts
-  }, [items])
+  const [selected, setSelected] = useState<Product | null>(null)
 
   if (status === 'loading') {
     return (
@@ -32,22 +25,28 @@ const ListProductClient = () => {
   }
 
   return (
-    <div className="flex flex-col w-full gap-5 pb-20">
-      {products.map((product) => (
-        <CardProduct
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          price={product.price}
-          amount={productCounts.get(product.id) ?? 0}
-          category={product.category}
-          img={product.img}
-          ingredients={product.ingredients}
-          type="client"
-          onCancel={() => {}}
-        />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col w-full gap-5 pb-20">
+        {products.map((product) => (
+          <CardProduct
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            category={product.category}
+            img={product.img}
+            onClick={() => setSelected(product)}
+          />
+        ))}
+      </div>
+
+      <EditProduct
+        isOpen={selected !== null}
+        id={selected?.id ?? 0}
+        name={selected?.name ?? ''}
+        ingredients={selected?.ingredients ?? []}
+        onClose={() => setSelected(null)}
+      />
+    </>
   )
 }
 

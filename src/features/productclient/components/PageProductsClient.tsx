@@ -6,6 +6,7 @@ import ListProductClient from './ListProductClient.tsx'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import ClientLayout from '@/shared/components/layouts/ClientLayout.tsx'
 import { useNavigate, useParams } from 'react-router'
+import { ShoppingCart } from 'lucide-react'
 
 const PageProductsClient = () => {
   const { idmesa } = useParams<{ idmesa: string }>()
@@ -26,10 +27,11 @@ const PageProductsClient = () => {
         </div>
         <div className="absolute flex w-full bottom-0">
           <ComponentButton
-            text="confirmar"
+            text="Ir a Carrito"
             style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }}
             type="button"
             onClick={() => navigate(`/init/${idmesa}/order`)}
+            icon={ShoppingCart}
           />
         </div>
 
