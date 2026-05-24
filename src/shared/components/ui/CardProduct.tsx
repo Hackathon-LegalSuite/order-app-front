@@ -31,8 +31,8 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false }: 
                 <ComponentTag text={CATEGORY_LABEL[category]} category={category} />
                 </div>
                 
-                <div className="flex justify-end ">
-                    <span>$ {formattedPrice}</span>
+                <div className="flex justify-end">
+                    <span className='pr-2'>$ {formattedPrice}</span>
                 </div>
             </div>
         </div>
