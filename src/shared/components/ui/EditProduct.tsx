@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import type { Ingredient } from '@/features/productclient/types/products.types.ts'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { ShoppingCart, Check, Trash2 } from 'lucide-react'
+import { ShoppingCart, Check, Trash2, X } from 'lucide-react'
 
 type EditProductProps = {
   isOpen: boolean
@@ -10,7 +10,7 @@ type EditProductProps = {
   name: string
   ingredients: Ingredient[]
   onClose: () => void
-  mode?: 'add' | 'order'
+  mode?: 'add' | 'order' | 'view'
   initialExcluded?: number[]
   onConfirm?: (excluded: number[]) => void
   onDelete?: () => void
@@ -35,7 +35,11 @@ const EditProduct = ({
     if (isOpen) setExcluded(initialExcluded)
   }, [isOpen])
 
+  const selectedCount = ingredients.filter((i) => !excluded.includes(i.id)).length
+
   const toggle = (ingredientId: number) => {
+    const isChecked = !excluded.includes(ingredientId)
+    if (isChecked && selectedCount <= 2) return
     setExcluded((prev) =>
       prev.includes(ingredientId) ? prev.filter((x) => x !== ingredientId) : [...prev, ingredientId]
     )
@@ -79,21 +83,25 @@ const EditProduct = ({
               {ingredients.map((ingredient) => {
                 const isChecked = !excluded.includes(ingredient.id)
 
-                if (ingredient.required) {
+                if (ingredient.required || mode === 'view') {
                   return (
-                    <div key={ingredient.id} className="flex items-center gap-3 opacity-40 cursor-default">
-                      <span className="w-4 h-4 rounded-full bg-item shrink-0" />
-                      <span className="text-base text-one">{ingredient.label}</span>
+                    <div key={ingredient.id} className={`flex items-center gap-3 ${mode === 'view' ? 'cursor-default' : 'opacity-40 cursor-default'}`}>
+                      <span className={`w-4 h-4 rounded-full shrink-0 ${mode === 'view' ? (isChecked ? 'bg-item' : 'bg-transparent border-2 border-secondary') : 'bg-item'}`} />
+                      <span className={`text-base ${mode === 'view' ? (isChecked ? 'text-one' : 'text-secondary line-through') : 'text-one opacity-40'}`}>
+                        {ingredient.label}
+                      </span>
                     </div>
                   )
                 }
+
+                const isLocked = isChecked && selectedCount <= 2
 
                 return (
                   <button
                     key={ingredient.id}
                     type="button"
                     onClick={() => toggle(ingredient.id)}
-                    className="flex items-center gap-3 cursor-pointer text-left"
+                    className={`flex items-center gap-3 text-left ${isLocked ? 'cursor-default opacity-50' : 'cursor-pointer'}`}
                   >
                     <span
                       className={`w-4 h-4 rounded-full shrink-0 border-2 transition-colors ${
@@ -109,22 +117,33 @@ const EditProduct = ({
             </div>
 
             <div className={`mt-6 ${mode === 'order' ? 'flex gap-3' : ''}`}>
-              {mode === 'order' && (
-                <button
+              {mode === 'view' ? (
+                <ComponentButton
+                  text="Cerrar"
+                  icon={X}
                   type="button"
-                  onClick={() => { onDelete?.(); onClose() }}
-                  className="flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-danger text-white font-semibold shrink-0"
-                >
-                  <Trash2 className="w-5 h-5" />
-                  Eliminar
-                </button>
+                  onClick={onClose}
+                />
+              ) : (
+                <>
+                  {mode === 'order' && (
+                    <button
+                      type="button"
+                      onClick={() => { onDelete?.(); onClose() }}
+                      className="flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-danger text-white font-semibold shrink-0"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                      Eliminar
+                    </button>
+                  )}
+                  <ComponentButton
+                    text={mode === 'order' ? 'Confirmar' : 'Añadir a carrito'}
+                    icon={mode === 'order' ? Check : ShoppingCart}
+                    type="button"
+                    onClick={handleMain}
+                  />
+                </>
               )}
-              <ComponentButton
-                text={mode === 'order' ? 'Confirmar' : 'Añadir a carrito'}
-                icon={mode === 'order' ? Check : ShoppingCart}
-                type="button"
-                onClick={handleMain}
-              />
             </div>
           </div>
         </div>

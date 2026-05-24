@@ -23,7 +23,7 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false, st
 
     return (
         <>
-            <div onClick={onClick} className="flex px-3 py-5 w-full rounded-3xl gap-2 bg-card items-center h-30 cursor-pointer">
+            <div onClick={onClick} className="flex px-3 py-5 w-full rounded-3xl gap-2 bg-card items-center h-auto cursor-pointer">
                 <div>
                     <img className="w-35" src={img} alt={name} />
                 </div>
@@ -32,7 +32,7 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false, st
                         <div className="flex flex-1 min-w-0 flex-wrap items-center gap-2">
                             <span className="font-semibold text-lg leading-tight line-clamp-2">{name}</span>
                             {isEdited && (
-                                <span className="text-xs font-semibold bg-warning text-primary px-2 py-0.5 rounded-full">editado</span>
+                                <span className="text-xs font-semibold bg-secondary/20 text-secondary border border-secondary/40 px-2 py-0.5 rounded-full">editado</span>
                             )}
                         </div>
                         {onDelete && (
@@ -52,7 +52,7 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false, st
                             </span>
                         )}
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex justify-end items-end-safe">
                         <span className="pr-2">$ {formattedPrice}</span>
                     </div>
                 </div>

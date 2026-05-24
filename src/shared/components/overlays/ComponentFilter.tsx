@@ -47,16 +47,17 @@ const ComponentFilter = () => {
     <div className='flex justify-between items-center'>
       {filters.map((option) => {
         const Icon = option.icon
-        const isActive = option.id === 5 || activeId === option.id
+        const isIA = option.id === 5
+        const isActive = activeId === option.id
 
         return (
           <div
             key={option.id}
-            onClick={() => handleClick(option)}
+            onClick={() => !isIA && handleClick(option)}
             title={option.label}
             className={`flex justify-center items-center rounded-full w-14.5 h-11 transition-colors ${
-              option.category ? 'cursor-pointer' : 'cursor-default'
-            } ${isActive ? 'bg-one text-item' : 'bg-card text-one'}`}
+              isIA ? 'cursor-default bg-card' : isActive ? 'bg-one cursor-pointer' : 'bg-card cursor-pointer'
+            } ${isActive && !isIA ? 'text-item' : isIA ? 'text-item' : 'text-one'}`}
           >
             <Icon className="w-6 h-6" />
           </div>
