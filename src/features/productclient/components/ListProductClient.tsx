@@ -24,6 +24,15 @@ const ListProductClient = () => {
     )
   }
 
+  if (status === 'success' && products.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-40 gap-2 text-secondary">
+        <span className="text-3xl">🍽️</span>
+        <p className="text-sm">No hay productos en esta categoría</p>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="flex flex-col w-full gap-5 pb-20">

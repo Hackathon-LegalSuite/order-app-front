@@ -38,3 +38,8 @@ export const fetchProducts = async (): Promise<Product[]> => {
   const { data } = await http.get<ApiProduct[]>('/platos')
   return data.map(toProduct)
 }
+
+export const fetchProductsByCategory = async (category: Category): Promise<Product[]> => {
+  const { data } = await http.get<ApiProduct[]>(`/platos/categoria/${category}`)
+  return data.map(toProduct)
+}
