@@ -1,23 +1,26 @@
-import axios, { AxiosHeaders } from 'axios'
+import axios, { AxiosHeaders, type InternalAxiosRequestConfig } from 'axios'
 import { useClientAuthStore } from '@store/clientAuthStore.ts'
+import { useChefAuthStore } from '@store/chefAuthStore.ts'
 
 export const API_BASE_URL = '/api'
 
-export const http = axios.create({
-	baseURL: API_BASE_URL,
+const attachToken = (token: string | undefined, config: InternalAxiosRequestConfig) => {
+	if (!token) return config
+	config.headers = config.headers instanceof AxiosHeaders
+		? config.headers
+		: new AxiosHeaders(config.headers)
+	config.headers.set('Authorization', `Bearer ${token}`)
+	return config
+}
+
+export const http = axios.create({ baseURL: API_BASE_URL })
+http.interceptors.request.use((config) => {
+	attachToken(useClientAuthStore.getState().auth?.token, config)
+	return config
 })
 
-http.interceptors.request.use((config) => {
-	const token = useClientAuthStore.getState().auth?.token
-	if (token) {
-		if (!config.headers) {
-			config.headers = new AxiosHeaders()
-		} else if (!(config.headers instanceof AxiosHeaders)) {
-			config.headers = new AxiosHeaders(config.headers)
-		}
-
-		config.headers.set('Authorization', `Bearer ${token}`)
-	}
-
+export const httpChef = axios.create({ baseURL: API_BASE_URL })
+httpChef.interceptors.request.use((config) => {
+	attachToken(useChefAuthStore.getState().auth?.token, config)
 	return config
 })
