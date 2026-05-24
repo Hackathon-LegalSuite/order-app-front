@@ -10,3 +10,7 @@ export const fetchOrders = async (): Promise<PedidoItem[]> => {
   const { data } = await http.get<PedidoItem[]>('/pedido')
   return data
 }
+
+export const deleteOrderItem = async (pedidoId: number, itemId: number): Promise<void> => {
+  await http.delete(`/pedido/${pedidoId}/item/${itemId}`)
+}

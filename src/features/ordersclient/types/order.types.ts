@@ -17,6 +17,7 @@ export type PedidoEstado = 'EN_ESPERA' | 'EN_PREPARACION' | 'LISTO' | 'ENTREGADO
 
 export type PedidoItem = {
   itemId: number
+  pedidoId: number
   platoId: number
   platoNombre: string
   precio: number
