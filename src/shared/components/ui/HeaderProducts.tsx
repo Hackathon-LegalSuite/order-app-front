@@ -15,13 +15,13 @@ const HeaderProducts = ({ showCart = true, cartCount }: HeaderProductsProps) => 
   const { idmesa } = useParams<{ idmesa: string }>()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const showBack = !pathname.endsWith('/products')
+  const showBack = pathname.includes('/order')
 
   return (
     <div className="flex justify-between w-full">
       <div className="w-32 flex items-center">
         {showBack && (
-          <ChevronLeft onClick={() => navigate(-1)} className="w-8 h-8 shrink-0 text-one cursor-pointer" />
+          <ChevronLeft onClick={() => navigate(`/init/${idmesa}/products`)} className="w-8 h-8 shrink-0 text-one cursor-pointer" />
         )}
         <img src={name} alt="" onClick={() => idmesa && navigate(`/init/${idmesa}/products`)} className="cursor-pointer" />
       </div>
