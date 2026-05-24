@@ -2,8 +2,13 @@ import ClientLayout from '@/shared/components/layouts/ClientLayout.tsx'
 import ListOrderClient from './ListOrderClient.tsx'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import HeaderProducts from '@/shared/components/ui/HeaderProducts.tsx'
+import { useSubmitOrder } from '@/features/ordersclient/hooks/useSubmitOrder.ts'
+import { useCartStore } from '@store/cartStore.ts'
 
 const PageOrderClient = () => {
+  const { confirm, status } = useSubmitOrder()
+  const itemCount = useCartStore((state) => state.items.length)
+
   return (
     <ClientLayout>
       <main className=" relative flex flex-col gap-5 w-full flex-1 min-h-0">
@@ -18,7 +23,14 @@ const PageOrderClient = () => {
           style={{ paddingBottom: 'calc(16px + env(safe-area-inset-bottom))' }}
         >
           <div className="w-full max-w-4xl">
-            <ComponentButton text="confirmar" style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }} />
+            <ComponentButton
+              text="Enviar mi pedido"
+              style={{ paddingTop: '16px', paddingBottom: '16px', fontSize: '18px' }}
+              type="button"
+              loading={status === 'loading'}
+              disabled={itemCount === 0}
+              onClick={confirm}
+            />
           </div>
         </div>
       </main>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
-import { Bot, CakeSlice, CupSoda, Beef, Grape } from 'lucide-react'
+import { Bot, CakeSlice, CupSoda, Ham , Popcorn  } from 'lucide-react'
 import type { Category } from '@/shared/types/Categoy.types.ts'
 import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
 import { fetchProducts, fetchProductsByCategory } from '@/features/productclient/services/productsService.ts'
@@ -13,8 +13,8 @@ type FilterOption = {
 }
 
 const filters: FilterOption[] = [
-  { id: 1, label: 'Entrada',      icon: Grape,     category: 'ENTRADA'      },
-  { id: 2, label: 'Plato Fuerte', icon: Beef,      category: 'PLATO_FUERTE' },
+  { id: 1, label: 'Entrada',      icon: Popcorn ,     category: 'ENTRADA'      },
+  { id: 2, label: 'Plato Fuerte', icon: Ham ,      category: 'PLATO_FUERTE' },
   { id: 3, label: 'Postre',       icon: CakeSlice, category: 'POSTRE'       },
   { id: 4, label: 'Bebida',       icon: CupSoda,   category: 'BEBIDA'       },
   { id: 5, label: 'IA',           icon: Bot                                  },
