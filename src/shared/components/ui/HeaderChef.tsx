@@ -1,15 +1,19 @@
 import { NavLink } from 'react-router'
+import { useChefAuthStore } from '@store/chefAuthStore.ts'
 
 type HeaderChefProps = {
 	basePath?: string
 }
 
-const tabs = [
-	{ label: 'Pendientes', path: '', exact: true },
-	{ label: 'Entregas', path: 'entregas' },
+const allTabs = [
+	{ label: 'Pendientes', path: '', exact: true, roles: ['COCINERO'] },
+	{ label: 'Entregas', path: 'entregas', exact: false, roles: ['MESERO'] },
 ]
 
 const HeaderChef = ({ basePath = '/orderchef' }: HeaderChefProps) => {
+	const rol = useChefAuthStore((state) => state.auth?.rol)
+	const tabs = allTabs.filter((tab) => !rol || tab.roles.includes(rol))
+
 	return (
 		<div className="flex gap-5">
 			{tabs.map((tab) => {

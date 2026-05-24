@@ -5,6 +5,7 @@ import PageLoginClient from '@/features/loginclient/components/PageLoginClient.t
 import PageOrderClient from '@/features/ordersclient/components/PageOrderClient.tsx'
 import PageProductsClient from '@/features/productclient/components/PageProductsClient.tsx'
 import ClientAuthGuard from '@/router/ClientAuthGuard.tsx'
+import ChefAuthGuard from '@/router/ChefAuthGuard.tsx'
 import { useChefAuthStore, selectChefIsValid } from '@store/chefAuthStore.ts'
 
 const AppRouter = () => {
@@ -18,8 +19,10 @@ const AppRouter = () => {
 					path="/loginchef"
 					element={loggedIn ? <Navigate to="/orderchef" replace /> :  <PageLoginChef />}
 				/>
-				<Route path="/orderchef" element={<PageOrderChef />} />
+				<Route element={<ChefAuthGuard />}>
+					<Route path="/orderchef" element={<PageOrderChef />} />
 					<Route path="/orderchef/entregas" element={<PageOrderChef />} />
+				</Route>
 				<Route path="/init" element={<PageLoginClient />} />
 				<Route path="/init/:idmesa" element={<PageLoginClient />} />
 				<Route element={<ClientAuthGuard />}>
