@@ -1,20 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import PageLoginChef from '@/features/loginchef/components/PageLoginChef.tsx'
+import PageOrderChef from '@/features/orderchef/components/PageOrderChef.tsx'
 import PageLoginClient from '@/features/loginclient/components/PageLoginClient.tsx'
 import PageOrderClient from '@/features/ordersclient/components/PageOrderClient.tsx'
 import PageProductsClient from '@/features/productclient/components/PageProductsClient.tsx'
 import ClientAuthGuard from '@/router/ClientAuthGuard.tsx'
-
-const isAuthenticated = () => {
-	if (typeof window === 'undefined') {
-		return false
-	}
-
-	return Boolean(localStorage.getItem('auth_token'))
-}
+import { useChefAuthStore, selectChefIsValid } from '@store/chefAuthStore.ts'
 
 const AppRouter = () => {
-	const loggedIn = isAuthenticated()
+	const loggedIn = useChefAuthStore(selectChefIsValid)
 
 	return (
 		<BrowserRouter>
@@ -22,8 +16,10 @@ const AppRouter = () => {
 				<Route path="/" element={<Navigate to="/loginchef" replace />} />
 				<Route
 					path="/loginchef"
-					element={loggedIn ? <Navigate to="/orders" replace /> :  <PageLoginChef />}
+					element={loggedIn ? <Navigate to="/orderchef" replace /> :  <PageLoginChef />}
 				/>
+				<Route path="/orderchef" element={<PageOrderChef />} />
+					<Route path="/orderchef/entregas" element={<PageOrderChef />} />
 				<Route path="/init" element={<PageLoginClient />} />
 				<Route path="/init/:idmesa" element={<PageLoginClient />} />
 				<Route element={<ClientAuthGuard />}>

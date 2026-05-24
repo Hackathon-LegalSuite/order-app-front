@@ -1,32 +1,67 @@
+import { useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
-import { Bot, CakeSlice, CupSoda, Beef, Grape } from 'lucide-react'
+import { Bot, CakeSlice, CupSoda, Ham , Popcorn  } from 'lucide-react'
+import type { Category } from '@/shared/types/Categoy.types.ts'
+import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
+import { fetchProducts, fetchProductsByCategory } from '@/features/productclient/services/productsService.ts'
+
+type FilterOption = {
+  id: number
+  label: string
+  icon: LucideIcon
+  category?: Category
+}
+
+const filters: FilterOption[] = [
+  { id: 1, label: 'Entrada',      icon: Popcorn ,     category: 'ENTRADA'      },
+  { id: 2, label: 'Plato Fuerte', icon: Ham ,      category: 'PLATO_FUERTE' },
+  { id: 3, label: 'Postre',       icon: CakeSlice, category: 'POSTRE'       },
+  { id: 4, label: 'Bebida',       icon: CupSoda,   category: 'BEBIDA'       },
+  { id: 5, label: 'IA',           icon: Bot                                  },
+]
 
 const ComponentFilter = () => {
-  const opcionFilter: Array<{
-    id: number
-    label: string
-    icon: LucideIcon
-  }> = [
-    { id: 1, label: 'entrada', icon: Grape },
-    { id: 2, label: 'plato fuerte', icon: Beef },
-    { id: 3, label: 'postre', icon: CakeSlice },
-    { id: 4, label: 'bebida', icon: CupSoda },
-    { id: 5, label: 'ia', icon: Bot },
-  ]
+  const [activeId, setActiveId] = useState<number | null>(null)
+  const { setProducts, setStatus } = useProductsStore()
+
+  const handleClick = async (option: FilterOption) => {
+    if (!option.category) return
+
+    setStatus('loading')
+    try {
+      if (activeId === option.id) {
+        setActiveId(null)
+        const all = await fetchProducts()
+        setProducts(all)
+      } else {
+        setActiveId(option.id)
+        const filtered = await fetchProductsByCategory(option.category)
+        setProducts(filtered)
+      }
+    } catch {
+      setStatus('error', 'Error al filtrar productos')
+    }
+  }
 
   return (
     <div className='flex justify-between items-center'>
-      {opcionFilter.map(({ id, label, icon: Icon }) => (
-        <div
-          key={id}
-          className={`flex justify-center items-center rounded-full w-14.5 h-11 ${
-            id === 5 ? 'bg-one text-item' : 'bg-two'
-          }`}
-          title={label}
-        >
-          <Icon className="w-6 h-6" />
-        </div>
-      ))}
+      {filters.map((option) => {
+        const Icon = option.icon
+        const isActive = option.id === 5 || activeId === option.id
+
+        return (
+          <div
+            key={option.id}
+            onClick={() => handleClick(option)}
+            title={option.label}
+            className={`flex justify-center items-center rounded-full w-14.5 h-11 transition-colors ${
+              option.category ? 'cursor-pointer' : 'cursor-default'
+            } ${isActive ? 'bg-one text-item' : 'bg-card text-one'}`}
+          >
+            <Icon className="w-6 h-6" />
+          </div>
+        )
+      })}
     </div>
   )
 }
