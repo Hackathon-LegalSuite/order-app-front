@@ -28,7 +28,7 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false }: 
                   )}
                 </div>
                 <div className='flex mt-2 text-sm'>
-                <ComponentTag text={CATEGORY_LABEL[category]} />
+                <ComponentTag text={CATEGORY_LABEL[category]} category={category} />
                 </div>
                 
                 <div className="flex justify-end ">
