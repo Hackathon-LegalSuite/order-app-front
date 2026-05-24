@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Ingredient } from '@/features/productclient/types/products.types.ts'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart, Check, Trash2 } from 'lucide-react'
 
 type EditProductProps = {
   isOpen: boolean
@@ -10,17 +10,44 @@ type EditProductProps = {
   name: string
   ingredients: Ingredient[]
   onClose: () => void
+  mode?: 'add' | 'order'
+  initialExcluded?: number[]
+  onConfirm?: (excluded: number[]) => void
+  onDelete?: () => void
 }
 
-const EditProduct = ({ isOpen, id, name, ingredients, onClose }: EditProductProps) => {
+const EditProduct = ({
+  isOpen,
+  id,
+  name,
+  ingredients,
+  onClose,
+  mode = 'add',
+  initialExcluded = [],
+  onConfirm,
+  onDelete,
+}: EditProductProps) => {
   const isEditable = ingredients.some((i) => !i.required)
-  const [excluded, setExcluded] = useState<number[]>([])
+  const [excluded, setExcluded] = useState<number[]>(initialExcluded)
   const addItem = useCartStore((state) => state.addItem)
 
-  const toggle = (id: number) => {
+  useEffect(() => {
+    if (isOpen) setExcluded(initialExcluded)
+  }, [isOpen])
+
+  const toggle = (ingredientId: number) => {
     setExcluded((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(ingredientId) ? prev.filter((x) => x !== ingredientId) : [...prev, ingredientId]
     )
+  }
+
+  const handleMain = () => {
+    if (mode === 'order') {
+      onConfirm?.(excluded)
+    } else {
+      addItem(id, excluded)
+    }
+    onClose()
   }
 
   return (
@@ -81,8 +108,23 @@ const EditProduct = ({ isOpen, id, name, ingredients, onClose }: EditProductProp
               })}
             </div>
 
-            <div className="mt-6">
-              <ComponentButton text="Añadir a carrito" icon={ShoppingCart} type="button" onClick={() => { addItem(id, excluded); onClose() }} />
+            <div className={`mt-6 ${mode === 'order' ? 'flex gap-3' : ''}`}>
+              {mode === 'order' && (
+                <button
+                  type="button"
+                  onClick={() => { onDelete?.(); onClose() }}
+                  className="flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-danger text-white font-semibold shrink-0"
+                >
+                  <Trash2 className="w-5 h-5" />
+                  Eliminar
+                </button>
+              )}
+              <ComponentButton
+                text={mode === 'order' ? 'Confirmar' : 'Añadir a carrito'}
+                icon={mode === 'order' ? Check : ShoppingCart}
+                type="button"
+                onClick={handleMain}
+              />
             </div>
           </div>
         </div>

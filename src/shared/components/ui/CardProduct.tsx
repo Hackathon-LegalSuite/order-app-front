@@ -8,9 +8,10 @@ export type CardProductProps = {
     category: Category
     img: string
     onClick?: () => void
+    isEdited?: boolean
 }
 
-const CardProduct = ({ name, price, category, img, onClick }: CardProductProps) => {
+const CardProduct = ({ name, price, category, img, onClick, isEdited = false }: CardProductProps) => {
     const formattedPrice =
         typeof price === 'number' ? new Intl.NumberFormat('es-CO').format(price) : ''
 
@@ -20,7 +21,12 @@ const CardProduct = ({ name, price, category, img, onClick }: CardProductProps) 
                 <img className="w-35" src={img} alt={name} />
             </div>
             <div className="flex flex-col justify-between h-full w-full">
-                <div className="font-semibold text-lg leading-tight">{name}</div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-semibold text-lg leading-tight">{name}</span>
+                  {isEdited && (
+                    <span className="text-xs font-semibold bg-warning text-primary px-2 py-0.5 rounded-full">editado</span>
+                  )}
+                </div>
                 <span>$ {formattedPrice}</span>
                 <div className="flex justify-end">
                     <ComponentTag text={CATEGORY_LABEL[category]} />
