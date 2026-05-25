@@ -4,6 +4,7 @@ import PageOrderChef from '@/features/orderchef/components/PageOrderChef.tsx'
 import PageLoginClient from '@/features/loginclient/components/PageLoginClient.tsx'
 import PageOrderClient from '@/features/ordersclient/components/PageOrderClient.tsx'
 import PageProductsClient from '@/features/productclient/components/PageProductsClient.tsx'
+import PageIa from '@/features/ia/components/PageIa.tsx'
 import ClientAuthGuard from '@/router/ClientAuthGuard.tsx'
 import ChefAuthGuard from '@/router/ChefAuthGuard.tsx'
 import { useChefAuthStore, selectChefIsValid } from '@store/chefAuthStore.ts'
@@ -30,6 +31,7 @@ const AppRouter = () => {
 					<Route path="/init/:idmesa/order/car" element={<PageOrderClient />} />
 					<Route path="/init/:idmesa/order/products" element={<PageOrderClient />} />
 					<Route path="/init/:idmesa/products" element={<PageProductsClient />} />
+					<Route path="/init/:idmesa/ia" element={<PageIa />} />
 				</Route>
 				<Route path="*" element={<Navigate to="/loginchef" replace />} />
 			</Routes>
