@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import type { Ingredient } from '@/features/productclient/types/products.types.ts'
 import ComponentButton from '@/shared/components/ui/ComponentButton.tsx'
 import { useCartStore } from '@store/cartStore.ts'
-import { ShoppingCart, Check, Trash2, X } from 'lucide-react'
+import { Bot, ShoppingCart, Check, Trash2, X } from 'lucide-react'
 
 type EditProductProps = {
   isOpen: boolean
@@ -12,6 +12,7 @@ type EditProductProps = {
   onClose: () => void
   mode?: 'add' | 'order' | 'view'
   initialExcluded?: number[]
+  iaExcludedIds?: number[] | undefined
   onConfirm?: (excluded: number[]) => void
   onDelete?: () => void
 }
@@ -24,6 +25,7 @@ const EditProduct = ({
   onClose,
   mode = 'add',
   initialExcluded = [],
+  iaExcludedIds,
   onConfirm,
   onDelete,
 }: EditProductProps) => {
@@ -32,7 +34,15 @@ const EditProduct = ({
   const addItem = useCartStore((state) => state.addItem)
 
   useEffect(() => {
-    if (isOpen) setExcluded(initialExcluded)
+    if (!isOpen) return
+    if (mode === 'add' && iaExcludedIds && iaExcludedIds.length > 0) {
+      const validIds = ingredients
+        .filter((i) => !i.required && iaExcludedIds.includes(i.id))
+        .map((i) => i.id)
+      setExcluded(validIds)
+    } else {
+      setExcluded(initialExcluded)
+    }
   }, [isOpen])
 
   const selectedCount = ingredients.filter((i) => !excluded.includes(i.id)).length
@@ -95,6 +105,7 @@ const EditProduct = ({
                 }
 
                 const isLocked = isChecked && selectedCount <= 2
+                const isIaExcluded = !isChecked && !!iaExcludedIds?.includes(ingredient.id)
 
                 return (
                   <button
@@ -105,11 +116,19 @@ const EditProduct = ({
                   >
                     <span
                       className={`w-4 h-4 rounded-full shrink-0 border-2 transition-colors ${
-                        isChecked ? 'bg-item border-item' : 'bg-transparent border-secondary'
+                        isChecked ? 'bg-item border-item' : isIaExcluded ? 'bg-transparent border-item/40' : 'bg-transparent border-secondary'
                       }`}
                     />
-                    <span className={`text-base transition-colors ${isChecked ? 'text-one' : 'text-secondary line-through'}`}>
-                      {ingredient.label}
+                    <span className="flex flex-col gap-0.5">
+                      <span className={`text-base transition-colors leading-tight ${isChecked ? 'text-one' : 'text-secondary line-through'}`}>
+                        {ingredient.label}
+                      </span>
+                      {isIaExcluded && (
+                        <span className="inline-flex items-center gap-0.5 text-xs font-medium text-item">
+                          <Bot className="w-3 h-3" />
+                          sugerido por IA
+                        </span>
+                      )}
                     </span>
                   </button>
                 )

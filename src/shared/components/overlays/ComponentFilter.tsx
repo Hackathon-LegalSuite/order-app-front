@@ -4,6 +4,7 @@ import { Bot, CakeSlice, CupSoda, Ham , Popcorn  } from 'lucide-react'
 import type { Category } from '@/shared/types/Categoy.types.ts'
 import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
 import { fetchProducts, fetchProductsByCategory } from '@/features/productclient/services/productsService.ts'
+import { useNavigate, useParams } from 'react-router'
 
 type FilterOption = {
   id: number
@@ -23,8 +24,14 @@ const filters: FilterOption[] = [
 const ComponentFilter = () => {
   const [activeId, setActiveId] = useState<number | null>(null)
   const { setProducts, setStatus } = useProductsStore()
+  const { idmesa } = useParams<{ idmesa: string }>()
+  const navigate = useNavigate()
 
   const handleClick = async (option: FilterOption) => {
+    if (option.id === 5) {
+      navigate(`/init/${idmesa}/ia`)
+      return
+    }
     if (!option.category) return
 
     setStatus('loading')
@@ -53,11 +60,11 @@ const ComponentFilter = () => {
         return (
           <div
             key={option.id}
-            onClick={() => !isIA && handleClick(option)}
+            onClick={() => handleClick(option)}
             title={option.label}
-            className={`flex justify-center items-center rounded-full w-14.5 h-11 transition-colors ${
-              isIA ? 'cursor-default bg-card' : isActive ? 'bg-one cursor-pointer' : 'bg-card cursor-pointer'
-            } ${isActive && !isIA ? 'text-item' : isIA ? 'text-item' : 'text-one'}`}
+            className={`flex justify-center items-center rounded-full w-14.5 h-11 transition-colors cursor-pointer ${
+              isIA ? 'bg-card text-item' : isActive ? 'bg-one text-item' : 'bg-card text-one'
+            }`}
           >
             <Icon className="w-6 h-6" />
           </div>

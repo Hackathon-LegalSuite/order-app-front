@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { Category } from '@/shared/types/Categoy.types.ts'
 import { CATEGORY_LABEL } from '@/shared/types/Categoy.types.ts'
 import ComponentTag from '@/shared/components/overlays/ComponenTag.tsx'
-import { Trash2 } from 'lucide-react'
+import { Bot, Trash2 } from 'lucide-react'
 import ModalDeleteProduct from '@/shared/components/overlays/ModalDeleteProduct.tsx'
 
 export type CardProductProps = {
@@ -12,11 +12,12 @@ export type CardProductProps = {
     img: string
     onClick?: () => void
     isEdited?: boolean
+    isIa?: boolean
     statusTag?: { text: string; className: string }
     onDelete?: () => void
 }
 
-const CardProduct = ({ name, price, category, img, onClick, isEdited = false, statusTag, onDelete }: CardProductProps) => {
+const CardProduct = ({ name, price, category, img, onClick, isEdited = false, isIa = false, statusTag, onDelete }: CardProductProps) => {
     const formattedPrice =
         typeof price === 'number' ? new Intl.NumberFormat('es-CO').format(price) : ''
     const [showConfirm, setShowConfirm] = useState(false)
@@ -31,6 +32,12 @@ const CardProduct = ({ name, price, category, img, onClick, isEdited = false, st
                     <div className="flex items-start gap-2">
                         <div className="flex flex-1 min-w-0 flex-wrap items-center gap-2">
                             <span className="font-semibold text-lg leading-tight line-clamp-2">{name}</span>
+                            {isIa && (
+                                <span className="inline-flex items-center gap-1 text-xs font-semibold bg-item text-primary px-2 py-0.5 rounded-full">
+                                    <Bot className="w-3 h-3" />
+                                    IA
+                                </span>
+                            )}
                             {isEdited && (
                                 <span className="text-xs font-semibold bg-secondary/20 text-secondary border border-secondary/40 px-2 py-0.5 rounded-full">editado</span>
                             )}
