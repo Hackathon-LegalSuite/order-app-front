@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import ClientLayout from '@/shared/components/layouts/ClientLayout.tsx'
 import ListCarClient from './ListCarClient.tsx'
 import ListOrderClient from './ListOrderClient.tsx'
@@ -17,6 +18,12 @@ const PageOrderClient = () => {
   const itemCount = useCartStore((state) => state.items.length)
 
   const tab: Tab = location.pathname.endsWith('/products') ? 'pedidos' : 'carrito'
+
+  useEffect(() => {
+    if (status === 'success') {
+      navigate(`/init/${idmesa}/order/products`)
+    }
+  }, [status, idmesa, navigate])
 
   const setTab = (t: Tab) => {
     navigate(`/init/${idmesa}/order/${t === 'carrito' ? 'car' : 'products'}`)
