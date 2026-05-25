@@ -27,9 +27,11 @@ const FormIa = () => {
     try {
       const res = await buscarPorPrompt(value.trim())
       setResult(
-        res.platos.map((p) => p.id),
+        (res.platos ?? []).map((p) => p.id),
         (res.ingredientesExcluir ?? []).map((i) => i.id),
-        res.mensaje,
+        res.platos && res.platos.length > 0
+          ? res.mensaje
+          : 'No se encontraron resultados con lo que pediste.',
       )
       navigate(`/init/${idmesa}/products`)
     } catch {
