@@ -3,6 +3,7 @@ import { Send, Bot } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router'
 import { buscarPorPrompt } from '@/features/ia/services/iaService.ts'
 import { useIaStore } from '@/features/ia/store/iaStore.ts'
+import { useProductsStore } from '@/features/productclient/store/productsStore.ts'
 
 const FormIa = () => {
   const [value, setValue] = useState('')
@@ -12,6 +13,7 @@ const FormIa = () => {
   const { idmesa } = useParams<{ idmesa: string }>()
   const navigate = useNavigate()
   const setResult = useIaStore((s) => s.setResult)
+  const resetProducts = useProductsStore((s) => s.setStatus)
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -33,6 +35,7 @@ const FormIa = () => {
           ? res.mensaje
           : 'No se encontraron resultados con lo que pediste.',
       )
+      resetProducts('idle')
       navigate(`/init/${idmesa}/products`)
     } catch {
       setError('No se pudo obtener una sugerencia. Intenta de nuevo.')
