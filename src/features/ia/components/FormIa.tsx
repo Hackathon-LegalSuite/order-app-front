@@ -69,17 +69,14 @@ const FormIa = () => {
 
         <div className="grid grid-cols-2 gap-2 w-full pb-1">
           {[
-            { emoji: '🌽', text: 'Algo típico colombiano y crocante' },
-            { emoji: '🥗', text: 'Quiero algo fresco y vegetariano' },
-            { emoji: '🦐', text: 'Me apetece mariscos o ceviche' },
-            { emoji: '🧀', text: 'Recomiéndame con queso o aguacate' },
-            { emoji: '🥩', text: 'Algo contundente con carne' },
-            { emoji: '🫓', text: 'Con arepa o pan artesanal' },
-            { emoji: '🍋', text: 'Algo marinado y refrescante' },
-            { emoji: '🥑', text: 'Quiero algo con aguacate' },
-            { emoji: '💸', text: 'La opción más económica' },
-            { emoji: '🌶️', text: 'Algo picante o con ají' },
-            { emoji: '🎲', text: 'Sorpréndeme con algo diferente' },
+            { emoji: '🫔', text: 'Dame empanadas' },
+            { emoji: '🥤', text: 'Quiero una Malteada' },
+            { emoji: '🥭', text: 'Quiero un Granizado o algo frío' },
+            { emoji: '🍫', text: 'Quiero un Brownie' },
+            { emoji: '🥩', text: 'Quiero algo con carne' },
+            { emoji: '🧃', text: 'Quiero algo dulce' },
+            { emoji: '🌶️', text: 'Dame algo con ají o salsa picante' },
+            { emoji: '🎣', text: 'Dame algo con pescado' },
           ].map(({ emoji, text }) => (
             <button
               key={text}
@@ -94,7 +91,7 @@ const FormIa = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="pt-4">
+      <form onSubmit={handleSubmit} className="sticky bottom-0 pt-4 bg-page">
         {error && (
           <p className="text-xs text-danger text-center mb-3">{error}</p>
         )}
